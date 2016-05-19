@@ -208,8 +208,8 @@
 						class="fa fa-edit fa-fw"></i> เบิกครุภัณฑ์</a> <!-- /.nav-second-level --></li>
 				<li><a href="<%=request.getContextPath()%>/Repair"><i
 						class="fa fa-wrench fa-fw"></i>ซ่อมบำรุง</a> <!-- /.nav-second-level --></li>
-				<li><a href="#"><i class="fa fa-print fa-fw"></i>
-						ปริ๊นรายงาน</a> <!-- /.nav-second-level --></li>
+				<li><a href="<%=request.getContextPath() + "/Report"%>"><i
+						class="fa fa-print fa-fw"></i> ปริ๊นรายงาน</a> <!-- /.nav-second-level --></li>
 				<%
 					if (user.getRole().equals("admin")) {
 				%>
