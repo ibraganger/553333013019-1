@@ -34,6 +34,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 <%@include file="/jspFile/css.jsp"%>
 <%@include file="/jspFile/js.jsp"%>
 <title>ข้อมูลผู้ใช้</title>
@@ -117,6 +118,11 @@
 										<button type="submit" class="btn btn-warning">
 											<i class="fa fa-search fa-fw"></i>ค้นหา
 										</button>
+									</div>
+									<div class="form-group">
+										<a href="<%=request.getContextPath()%>/UserInfo"
+											class="btn btn-default"> <i class="fa fa-refresh fa-fw"></i>รีเซ็ต
+										</a>
 									</div>
 									<div class="form-group">
 										<a class="btn btn-success"
