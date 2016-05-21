@@ -40,6 +40,8 @@
 								<button type="submit" class="btn btn-warning">
 									<i class="fa fa-search fa-fw"></i>ค้นหา
 								</button>
+								<a href="<%=request.getContextPath() + "/Expose"%>"
+								class="btn btn-default"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
 								<a href="#" class="btn btn-success"><i
 									class="fa fa-plus fa-fw"></i>สร้างเอกสาร</a>
 							</div>

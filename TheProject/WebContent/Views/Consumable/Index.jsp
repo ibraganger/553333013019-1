@@ -31,11 +31,15 @@
 					<div class="col-lg-12"">
 						<form class="form-inline">
 							<div class="form-group">
-								<input type="text" name="search" id="search" value="<%=request.getAttribute("search") %>" class="form-control"  placeholder="ค้นหารหัสวัสดุ,ชื่อวัสดุ">
+								<input type="text" name="search" id="search"
+									value="<%=request.getAttribute("search")%>"
+									class="form-control" placeholder="ค้นหารหัสวัสดุ,ชื่อวัสดุ">
 							</div>
 							<button type="submit" class="btn btn-warning">
 								<i class="fa fa-search fa-fw"></i>ค้นหา
 							</button>
+							<a href="<%=request.getContextPath() + "/consumable"%>"
+								class="btn btn-default"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
 							<a href="<%=request.getContextPath()%>/CreateCon"
 								class="btn btn-success"><i class="fa fa-plus fa-fw"></i>เพิ่ม</a>
 
@@ -121,7 +125,7 @@
 				responsive : true,
 				"searching" : false
 			});
-			
+
 			$('.btn-delete').on('click', function() {
 				$modal = $('.modal-delete');
 				var id = $(this).data('id');
