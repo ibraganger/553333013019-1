@@ -42,7 +42,7 @@
 								</button>
 								<a href="<%=request.getContextPath() + "/Expose"%>"
 								class="btn btn-default"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
-								<a href="#" class="btn btn-success"><i
+								<a href="<%=request.getContextPath() + "/CreateExpose"%>" class="btn btn-success"><i
 									class="fa fa-plus fa-fw"></i>สร้างเอกสาร</a>
 							</div>
 						</form>

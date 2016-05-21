@@ -15,7 +15,7 @@ public class DbUtil {
 		} else {
 			try {
 				String driver = "com.mysql.jdbc.Driver";
-				String url = "jdbc:mysql://192.168.204.128:3306/project_asset?useUnicode=true&amp;characterEncoding=utf-8";
+				String url = "jdbc:mysql://127.0.0.1:3306/project_asset?useUnicode=true&amp;characterEncoding=utf-8";
 				String user = "root";
 				String password = "1234";
 				Class.forName(driver);
