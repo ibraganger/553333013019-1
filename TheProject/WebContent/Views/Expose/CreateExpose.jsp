@@ -54,47 +54,34 @@
 						</div>
 						<div class="col-sm-8">
 							<div class="col-sm-12">
-								<label>เพิ่มวัสดุ</label>
-								<div class="form-inline">
-									<div class="form-group">
-										<input class="form-control" name="" id=""
-											placeholder="รหัสวัสดุ">
-									</div>
-									<div class="form-group">
-										<input class="form-control" name="" id=""
-											placeholder="ชื่อวัสดุ">
-									</div>
-									<div class="form-group">
-										<input class="form-control" name="" id="" placeholder="จำนวน">
-									</div>
-									<a class="btn btn-warning" style="cursor: pointer;"><i
-										class="fa fa-plus fa-fw"></i>เพิ่ม</a> <a class="btn btn-info"
-										style="cursor: pointer;"><i class="fa fa-search"></i>ตรวจสอบวัสดุ</a>
+								<div class="col-sm-12">
+									<label>เพิ่มวัสดุ</label>
 								</div>
-							</div>
-							<br>
-							<div class="col-sm-12">
-								<table id="myTable" class="table table-striped">
-									<thead>
-										<tr>
-											<th class="text-center">รหัสวัสดุ</th>
-											<th class="text-center">ชื่อวัสดุ</th>
-											<th class="text-center">จัดการ</th>
-										</tr>
-									</thead>
-								</table>
-							</div>
+								<div class="col-sm-12 form-inline">
+									<a class="btn btn-warning" style="cursor: pointer;"><i
+										class="fa fa-plus fa-fw"></i>เพิ่ม</a>
+								</div>
+								<div class="col-sm-12">
+									<table id="myTable" class="table table-striped">
+										<thead>
+											<tr>
+												<th class="text-center">รหัสวัสดุ</th>
+												<th class="text-center">ชื่อวัสดุ</th>
+												<th class="text-center">จัดการ</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
 
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<script type="text/javascript">
-		$('#datePicker1').datepicker()
-	</script>
-
+		<script type="text/javascript">
+			$('#datePicker1').datepicker()
+		</script>
 </body>
 </html>
