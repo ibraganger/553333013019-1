@@ -20,7 +20,7 @@
 						<h1 class="page-header">สร้างเอกสารการเบิก</h1>
 					</div>
 					<div class="col-sm-12">
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 							<div class="form-group">
 								<label>เลขที่เอกสาร</label> <input class="form-control" name=""
 									id="" placeholder="เลขที่เอกสาร">
@@ -52,13 +52,13 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-sm-9">
 							<div class="col-sm-12">
 								<div class="col-sm-12">
 									<label>เพิ่มวัสดุ</label>
 								</div>
-								<div class="col-sm-12 form-inline">
-									<a class="btn btn-warning" style="cursor: pointer;"><i
+								<div class="col-sm-12">
+									<a class="btn btn-warning btn-find" style="cursor: pointer;"><i
 										class="fa fa-plus fa-fw"></i>เพิ่ม</a>
 								</div>
 								<div class="col-sm-12">
@@ -67,6 +67,7 @@
 											<tr>
 												<th class="text-center">รหัสวัสดุ</th>
 												<th class="text-center">ชื่อวัสดุ</th>
+												<th class="text-center">จำนวน</th>
 												<th class="text-center">จัดการ</th>
 											</tr>
 										</thead>
@@ -82,6 +83,36 @@
 
 		<script type="text/javascript">
 			$('#datePicker1').datepicker()
+
+			$('.btn-find').on('click', function() {
+				$modal = $('.modal-find');
+				$modal.modal('show');
+			})
 		</script>
+
+		<div class="modal fade modal-find" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						<p>One fine body&hellip;</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save
+							changes</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 </body>
 </html>
