@@ -37,13 +37,18 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Users gobalUser = (Users) request.getAttribute("gobalUser");
-		if (gobalUser != null) {
-			response.sendRedirect(request.getContextPath() + "/Permanent");
+		HttpSession ss = request.getSession(false);
+		String ssID = ss.getId();
+		if (ssID != null) {
+			Users gobalUser = (Users) request.getAttribute("gobalUser");
+			if (gobalUser != null) {
+				response.sendRedirect(request.getContextPath() + "/Permanent");
+			} else {
+				request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
+			}
 		} else {
 			request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
 		}
-
 	}
 
 	/**

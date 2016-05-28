@@ -52,8 +52,8 @@
 								</button>
 								<a href="<%=request.getContextPath()%>/Borrow"
 									class="btn btn-default"><i class="fa fa-refresh fa-fw"></i>ระเซ็ต</a>
-								<a href="#" class="btn btn-success"><i
-									class="fa fa-plus fa-fw"></i>สร้างเอกสาร</a>
+								<a href="<%=request.getContextPath()%>/CreateBorrow"
+									class="btn btn-success"><i class="fa fa-plus fa-fw"></i>สร้างเอกสาร</a>
 							</div>
 						</form>
 					</div>

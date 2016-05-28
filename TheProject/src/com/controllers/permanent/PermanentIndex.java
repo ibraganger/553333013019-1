@@ -45,8 +45,7 @@ public class PermanentIndex extends HttpServlet {
 		List<Permanent> list = new ArrayList<Permanent>();
 		HttpSession ss = request.getSession(false);
 		Users gobalUser = (Users) ss.getAttribute("gobalUser");
-		if (gobalUser != null) {
-
+		if (gobalUser != null & ss != null) {
 			search = request.getParameter("search");
 			input_date = request.getParameter("input_date");
 			if (search == null) {
