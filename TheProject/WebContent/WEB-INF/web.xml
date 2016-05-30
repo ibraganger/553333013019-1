@@ -30,4 +30,8 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/encodingFilter </url-pattern>
 	</filter-mapping>
+
+	<session-config>
+		<session-timeout>2</session-timeout>
+	</session-config>
 </web-app>
