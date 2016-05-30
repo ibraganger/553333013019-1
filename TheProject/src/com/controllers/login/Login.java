@@ -37,10 +37,10 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession ss = request.getSession(false);
+		HttpSession ss = request.getSession();
 		String ssID = ss.getId();
 		if (ssID != null) {
-			Users gobalUser = (Users) request.getAttribute("gobalUser");
+			Users gobalUser = (Users) ss.getAttribute("gobalUser");
 			if (gobalUser != null) {
 				response.sendRedirect(request.getContextPath() + "/Permanent");
 			} else {

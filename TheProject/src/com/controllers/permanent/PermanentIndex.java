@@ -43,31 +43,38 @@ public class PermanentIndex extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Permanent> list = new ArrayList<Permanent>();
-		HttpSession ss = request.getSession(false);
+		HttpSession ss = request.getSession();
 		Users gobalUser = (Users) ss.getAttribute("gobalUser");
-		if (gobalUser != null & ss != null) {
-			search = request.getParameter("search");
-			input_date = request.getParameter("input_date");
-			if (search == null) {
-				search = "";
-			}
 
-			if (input_date == null) {
-				input_date = "";
-			}
+		String ssID = ss.getId();
+		if (ssID != null) {
+			if (gobalUser != null) {
+				search = request.getParameter("search");
+				input_date = request.getParameter("input_date");
+				if (search == null) {
+					search = "";
+				}
 
-			if (search.equals("") & input_date.equals("")) {
-				list = perDao.getAll();
+				if (input_date == null) {
+					input_date = "";
+				}
+
+				if (search.equals("") & input_date.equals("")) {
+					list = perDao.getAll();
+				} else {
+					list = perDao.searchPermanent(search, input_date);
+				}
+				request.setAttribute("list", list);
+				request.setAttribute("search", search);
+				request.setAttribute("input_date", input_date);
+				request.getRequestDispatcher("Views/Permanent/Index.jsp").forward(request, response);
 			} else {
-				list = perDao.searchPermanent(search, input_date);
+				response.sendRedirect(request.getContextPath() + "/Login");
 			}
-			request.setAttribute("list", list);
-			request.setAttribute("search", search);
-			request.setAttribute("input_date", input_date);
-			request.getRequestDispatcher("Views/Permanent/Index.jsp").forward(request, response);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Login");
 		}
+
 	}
 
 	/**
