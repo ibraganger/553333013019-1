@@ -37,17 +37,17 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getSession(false);
-		HttpSession ss = request.getSession();		
-		String ssID = ss.getId();
-		if (ssID != null) {
-			Users gobalUser = (Users) ss.getAttribute("gobalUser");
-			if (gobalUser != null) {
+		request.getSession(false); 																//create session.
+		HttpSession ss = request.getSession();													//get session data.	
+		String ssID = ss.getId(); 																//get session id.
+		if (ssID != null) { 																	//check empty ssID if is not empty go to next process. 
+			Users gobalUser = (Users) ss.getAttribute("gobalUser"); 							//get attribute gobalUser for check loging in.
+			if (gobalUser != null) {  															//if attribute gobalUser is not empty. go to url controller permanent.
 				response.sendRedirect(request.getContextPath() + "/Permanent");
-			} else {
+			} else { 																			//if attribute gobalUser is empty. go to loin page.
 				request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
 			}
-		} else {
+		} else {																				//if ssID is empty go to login page. 
 			request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
 		}
 	}
@@ -59,14 +59,14 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String username = request.getParameter("username"); 									//call parameter username from login page
+		String password = request.getParameter("password"); 									//call parameter password from login page
 		Users user = new Users();
-		user = uDao.findUsername(username);
+		user = uDao.findUsername(username); 													//get username parameter for find user in database
 
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(); 											//call session
 
-		Users gobalUser = (Users) session.getAttribute("gobalUser");
+		Users gobalUser = (Users) session.getAttribute("gobalUser"); 							//get attribute gobalUser from session for check loging in
 		if (gobalUser != null) {
 			response.sendRedirect(request.getContextPath() + "/Permanent");
 		} else {
