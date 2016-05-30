@@ -37,7 +37,8 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession ss = request.getSession();
+		request.getSession(false);
+		HttpSession ss = request.getSession();		
 		String ssID = ss.getId();
 		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser");
