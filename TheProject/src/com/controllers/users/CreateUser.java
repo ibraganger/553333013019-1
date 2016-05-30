@@ -43,14 +43,18 @@ public class CreateUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession ss = request.getSession(false);
-		Users user = (Users) ss.getAttribute("gobalUser");
-
-		if (user != null) {
-			ArrayList<Faculty> listFc = (ArrayList<Faculty>) fcDao.getAll();
-			ArrayList<Department> listDp = (ArrayList<Department>) dpDao.getall();
-			request.setAttribute("listFc", listFc);
-			request.setAttribute("listDp", listDp);
-			request.getRequestDispatcher("/Views/Users/CreateUser.jsp").forward(request, response);
+		String ssID = ss.getId();
+		if (ssID != null) {
+			Users user = (Users) ss.getAttribute("gobalUser");
+			if (user != null) {
+				ArrayList<Faculty> listFc = (ArrayList<Faculty>) fcDao.getAll();
+				ArrayList<Department> listDp = (ArrayList<Department>) dpDao.getall();
+				request.setAttribute("listFc", listFc);
+				request.setAttribute("listDp", listDp);
+				request.getRequestDispatcher("/Views/Users/CreateUser.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Login");
+			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Login");
 		}
@@ -81,7 +85,7 @@ public class CreateUser extends HttpServlet {
 		user.setUsername(request.getParameter("username"));
 
 		if (user != null) {
-				userDao.add(user);
+			userDao.add(user);
 			response.sendRedirect(request.getContextPath() + "/UserInfo");
 		}
 	}

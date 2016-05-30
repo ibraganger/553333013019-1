@@ -55,48 +55,53 @@ public class UserInfo extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		HttpSession ss = request.getSession(false);
-		Users user = (Users) ss.getAttribute("gobalUser");
-		if (user != null) {
-			if (user.getRole().equals("admin")) {
+		String ssID = ss.getId();
+		if (ssID != null) {
+			Users gobalUser = (Users) ss.getAttribute("gobalUser");
+			if (gobalUser != null) {
+				if (gobalUser.getRole().equals("admin")) {
 
-				search = request.getParameter("search");
-				role = request.getParameter("role");
-				fa_id = request.getParameter("faculty_id");
-				dp_id = request.getParameter("department_id");
+					search = request.getParameter("search");
+					role = request.getParameter("role");
+					fa_id = request.getParameter("faculty_id");
+					dp_id = request.getParameter("department_id");
 
-				ArrayList<Users> listUser = new ArrayList<Users>();
-				if (search == null)
-					search = "";
-				if (role == null)
-					role = "";
-				if (fa_id == null)
-					fa_id = "";
-				if (dp_id == null)
-					dp_id = "";
+					ArrayList<Users> listUser = new ArrayList<Users>();
+					if (search == null)
+						search = "";
+					if (role == null)
+						role = "";
+					if (fa_id == null)
+						fa_id = "";
+					if (dp_id == null)
+						dp_id = "";
 
-				if (search == "" & role == "" & fa_id == "" & dp_id == "") {
-					listUser = (ArrayList<Users>) userDao.getAll();
+					if (search == "" & role == "" & fa_id == "" & dp_id == "") {
+						listUser = (ArrayList<Users>) userDao.getAll();
+					} else {
+						listUser = (ArrayList<Users>) userDao.searchUser(search, fa_id, dp_id, role);
+					}
+					ArrayList<Faculty> listFc = (ArrayList<Faculty>) fcDao.getAll();
+					ArrayList<Department> listDp = (ArrayList<Department>) dpDao.getall();
+					ArrayList<Role> listRole = (ArrayList<Role>) roleDao.getAll();
+					request.setAttribute("listRole", listRole);
+					request.setAttribute("listFc", listFc);
+					request.setAttribute("listDp", listDp);
+					request.setAttribute("listUser", listUser);
+
+					request.setAttribute("search", search);
+					request.setAttribute("role", role);
+					request.setAttribute("faculty_id", fa_id);
+					request.setAttribute("department_id", dp_id);
+					request.getRequestDispatcher("Views/Users/index.jsp").forward(request, response);
 				} else {
-					listUser = (ArrayList<Users>) userDao.searchUser(search, fa_id, dp_id, role);
+					response.sendRedirect(request.getContextPath() + "/NullPage");
 				}
-				ArrayList<Faculty> listFc = (ArrayList<Faculty>) fcDao.getAll();
-				ArrayList<Department> listDp = (ArrayList<Department>) dpDao.getall();
-				ArrayList<Role> listRole = (ArrayList<Role>) roleDao.getAll();
-				request.setAttribute("listRole", listRole);
-				request.setAttribute("listFc", listFc);
-				request.setAttribute("listDp", listDp);
-				request.setAttribute("listUser", listUser);
-
-				request.setAttribute("search", search);
-				request.setAttribute("role", role);
-				request.setAttribute("faculty_id", fa_id);
-				request.setAttribute("department_id", dp_id);
-				request.getRequestDispatcher("Views/Users/index.jsp").forward(request, response);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/NullPage");
+				response.sendRedirect(request.getContextPath() + "/Login");
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/");
+			response.sendRedirect(request.getContextPath() + "/Login");
 		}
 	}
 

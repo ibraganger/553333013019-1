@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.model.Users;
+
 /**
  * Servlet implementation class CreateBorrow
  */
@@ -30,9 +32,20 @@ public class CreateBorrow extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		HttpSession ss = request.getSession(false);		
-		request.getRequestDispatcher("Views/Borrow/CreateBorrow.jsp").forward(request, response);
+
+		HttpSession ss = request.getSession(false);
+		String ssID = ss.getId();
+		if (ssID != null) {
+			Users gobalUser = (Users) ss.getAttribute("gobalUser");
+			if (gobalUser != null) {
+				request.getRequestDispatcher("Views/Borrow/CreateBorrow.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Login");
+			}
+		} else {
+			response.sendRedirect(request.getContextPath() + "/Login");
+		}
+
 	}
 
 	/**

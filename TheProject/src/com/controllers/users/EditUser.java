@@ -46,23 +46,31 @@ public class EditUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession ss = request.getSession(false);
-		Users user = (Users) ss.getAttribute("gobalUser"), userEdit = new Users();
+		String ssID = ss.getId();
+		if (ssID != null) {
+			Users gobalUser = (Users) ss.getAttribute("gobalUser"), userEdit = new Users();
+			if (gobalUser != null) {
+				String code = request.getParameter("username");
+				userEdit = userDao.findUsername(code);
+				ArrayList<TitleName> titleList = new ArrayList<TitleName>();
+				titleList = titleDao.getAll();
 
-		String code = request.getParameter("username");
-		userEdit = userDao.findUsername(code);
-		ArrayList<TitleName> titleList = new ArrayList<TitleName>();
-		titleList = titleDao.getAll();
-		
-		if (user != null & userEdit != null) {
-			ArrayList<Faculty> listFc = (ArrayList<Faculty>) fcDao.getAll();
-			ArrayList<Department> listDp = (ArrayList<Department>) dpDao.getall();
-			request.setAttribute("listFc", listFc);
-			request.setAttribute("listDp", listDp);
-			request.setAttribute("userEdit", userEdit);
-			request.setAttribute("titleList", titleList);
-			request.getRequestDispatcher("/Views/Users/EditUser.jsp").forward(request, response);
+				if (userEdit != null) {
+					ArrayList<Faculty> listFc = (ArrayList<Faculty>) fcDao.getAll();
+					ArrayList<Department> listDp = (ArrayList<Department>) dpDao.getall();
+					request.setAttribute("listFc", listFc);
+					request.setAttribute("listDp", listDp);
+					request.setAttribute("userEdit", userEdit);
+					request.setAttribute("titleList", titleList);
+					request.getRequestDispatcher("/Views/Users/EditUser.jsp").forward(request, response);
+				} else {
+					response.sendRedirect(request.getContextPath() + "/UserInfo");
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Login");
+			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/UserInfo");
+			response.sendRedirect(request.getContextPath() + "/Login");
 		}
 	}
 
@@ -89,7 +97,7 @@ public class EditUser extends HttpServlet {
 		user.setTitle(request.getParameter("title"));
 		user.setUser_code(request.getParameter("user_code"));
 		user.setUsername(request.getParameter("username"));
-		
+
 		if (user != null) {
 			userDao.update(user);
 			response.sendRedirect(request.getContextPath() + "/UserInfo");

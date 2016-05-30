@@ -23,33 +23,40 @@ import com.model.Users;
 @WebServlet("/CreateCon")
 public class CreateCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-	
-	private ConsumableDao consumDao = new ConsumableDao();
-	private ConsumDetailsDao condetailsDao = new ConsumDetailsDao();
-    public CreateCon() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private ConsumableDao consumDao = new ConsumableDao();
+	private ConsumDetailsDao condetailsDao = new ConsumDetailsDao();
+
+	public CreateCon() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession ss = request.getSession(false);
-		Users user = (Users) ss.getAttribute("gobalUser");
-		if (user != null) {
-			if (user.getRole().equals("admin")) {
-				
-				List<Consumable> consumList = new ArrayList<Consumable>();
-				consumList = consumDao.getAll();
-				request.setAttribute("consumList", consumList);
-				request.getRequestDispatcher("Views/Consumable/CreateCon.jsp").forward(request, response);
-			}else{
-				response.sendRedirect(request.getContextPath() + "/NullPage");
+		String ssID = ss.getId();
+		if (ssID != null) {
+			Users gobalUser = (Users) ss.getAttribute("gobalUser");
+			if (gobalUser != null) {
+				if (gobalUser.getRole().equals("admin")) {
+					List<Consumable> consumList = new ArrayList<Consumable>();
+					consumList = consumDao.getAll();
+					request.setAttribute("consumList", consumList);
+					request.getRequestDispatcher("Views/Consumable/CreateCon.jsp").forward(request, response);
+				} else {
+					response.sendRedirect(request.getContextPath() + "/NullPage");
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Login");
 			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Login");
@@ -57,9 +64,11 @@ public class CreateCon extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		ConsumDetails consum = new ConsumDetails();
 		consum.setAmount(Integer.parseInt(request.getParameter("amount")));
@@ -67,20 +76,20 @@ public class CreateCon extends HttpServlet {
 		consum.setInput_date(request.getParameter("input_date"));
 		consum.setNote(request.getParameter("note"));
 		consum.setPrice(Double.parseDouble(request.getParameter("price")));
-		consum.setPrice_sum(consum.getPrice()*consum.getAmount());
-		if(consum != null){
+		consum.setPrice_sum(consum.getPrice() * consum.getAmount());
+		if (consum != null) {
 			condetailsDao.add(consum);
 			Consumable sum = consumDao.find(consum.getCon_id());
-			if(sum != null){
-				sum.setImp_amount(sum.getImp_amount()+consum.getAmount());
+			if (sum != null) {
+				sum.setImp_amount(sum.getImp_amount() + consum.getAmount());
 				sum.setAmount_tt(sum.getImp_amount() - sum.getExp_amount());
 				sum.setPrice(consum.getPrice());
-				sum.setPrice_tt(sum.getAmount_tt()*sum.getPrice());
+				sum.setPrice_tt(sum.getAmount_tt() * sum.getPrice());
 				consumDao.update(sum);
 			}
 		}
-		response.sendRedirect(request.getContextPath()+"/Consumable");
-		
+		response.sendRedirect(request.getContextPath() + "/Consumable");
+
 	}
 
 }

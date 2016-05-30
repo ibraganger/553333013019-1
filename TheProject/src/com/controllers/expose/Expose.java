@@ -37,7 +37,8 @@ public class Expose extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		HttpSession ss = request.getSession(false);
-		if (ss != null) {
+		String ssID = ss.getId();
+		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser");
 			if (gobalUser != null) {
 
@@ -57,10 +58,10 @@ public class Expose extends HttpServlet {
 				request.getRequestDispatcher("Views/Expose/Index.jsp").forward(request, response);
 
 			} else {
-				response.sendRedirect("/");
+				response.sendRedirect(request.getContextPath() + "/Login");
 			}
 		} else {
-			response.sendRedirect("/");
+			response.sendRedirect(request.getContextPath() + "/Login");
 		}
 	}
 

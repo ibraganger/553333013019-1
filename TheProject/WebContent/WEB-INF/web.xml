@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>TheProject</display-name>
-  <servlet>
-    <servlet-name>Login</servlet-name>
-    <servlet-class>com.controllers.login.Login</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Login</servlet-name>
-    <url-pattern>/Login*</url-pattern>
-  </servlet-mapping>
-  <filter>
-    <description>Character Encoding Filter </description>
-    <display-name>encodingFilter</display-name>
-    <filter-name>encodingFilter</filter-name>
-    <filter-class>com.csbank.base.servlets.filter.EncodingFilter</filter-class>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8 </param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>encodingFilter</filter-name>
-    <url-pattern>/encodingFilter </url-pattern>
-  </filter-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>TheProject</display-name>
+	<welcome-file-list>
+		<welcome-file>Login</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>com.controllers.login.Login</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login*</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<description>Character Encoding Filter </description>
+		<display-name>encodingFilter</display-name>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>com.csbank.base.servlets.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8 </param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/encodingFilter </url-pattern>
+	</filter-mapping>
 </web-app>

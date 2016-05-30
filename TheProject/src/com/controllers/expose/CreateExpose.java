@@ -33,16 +33,17 @@ public class CreateExpose extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		HttpSession ss = request.getSession(false);
-		if (ss != null) {
+		String ssID = ss.getId();
+		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser");
 			if (gobalUser != null) {
 				request.getRequestDispatcher("Views/Expose/CreateExpose.jsp").forward(request, response);
 
 			} else {
-				response.sendRedirect("/");
+				response.sendRedirect(request.getContextPath() + "/Login");
 			}
 		} else {
-			response.sendRedirect("/");
+			response.sendRedirect(request.getContextPath() + "/Login");
 		}
 	}
 

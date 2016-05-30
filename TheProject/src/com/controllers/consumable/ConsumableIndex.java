@@ -42,24 +42,30 @@ public class ConsumableIndex extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession ss = request.getSession(false);
-		Users user = (Users) ss.getAttribute("gobalUser");
-		if (user != null) {
+		String ssID = ss.getId();
+		if (ssID != null) {
+			Users gobalUser = (Users) ss.getAttribute("gobalUser");
+			if (gobalUser != null) {
 
-			search = request.getParameter("search");
-			List<Consumable> conList = new ArrayList<Consumable>();
-			if (search == null) {
-				search = "";
-				conList = conDao.getAll();
-			}else{
-				conList = conDao.searchConsum(search);
+				search = request.getParameter("search");
+				List<Consumable> conList = new ArrayList<Consumable>();
+				if (search == null) {
+					search = "";
+					conList = conDao.getAll();
+				} else {
+					conList = conDao.searchConsum(search);
+				}
+				request.setAttribute("search", search);
+				request.setAttribute("conList", conList);
+				request.getRequestDispatcher("Views/Consumable/Index.jsp").forward(request, response);
+
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Login");
 			}
-			request.setAttribute("search", search);
-			request.setAttribute("conList", conList);
-			request.getRequestDispatcher("Views/Consumable/Index.jsp").forward(request, response);
-
 		} else {
-			response.sendRedirect(request.getContextPath() + "/");
+			response.sendRedirect(request.getContextPath() + "/Login");
 		}
+
 	}
 
 	/**

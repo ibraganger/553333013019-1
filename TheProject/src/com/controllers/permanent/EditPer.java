@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.dao.PerDetailsDao;
 import com.dao.PermanentDao;
@@ -16,6 +17,7 @@ import com.dao.PouDao;
 import com.model.PerDetails;
 import com.model.PerOfUser;
 import com.model.Permanent;
+import com.model.Users;
 
 /**
  * Servlet implementation class EditPer
@@ -40,21 +42,32 @@ public class EditPer extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int per_id = Integer.parseInt(request.getParameter("per_id"));
 		Permanent per = new Permanent();
-		List<PerDetails> pd = new ArrayList<PerDetails>();
-		List<PerOfUser> pou = new ArrayList<PerOfUser>();
+		HttpSession ss = request.getSession();
+		String ssID = ss.getId();
+		if (ssID != null) {
+			Users gobalUser = (Users) ss.getAttribute("gobalUser");
+			if (gobalUser != null) {//if user has login goto page edit permanent for revision  
+				List<PerDetails> pd = new ArrayList<PerDetails>();
+				List<PerOfUser> pou = new ArrayList<PerOfUser>();
+				per = perDao.findPer_id(per_id);
+				pd = pdDao.findPer_id(per_id);
+				pou = pouDao.getAll();
+				request.setAttribute("per", per);
+				request.setAttribute("pd", pd);
+				request.setAttribute("pou", pou);
+				request.getRequestDispatcher("Views/Permanent/EditPer.jsp").forward(request, response);
+			} else {   //if no has login go to login path
+				response.sendRedirect(request.getContextPath() + "/Login");
+			}
+		} else {      //if no has login go to login path
+			response.sendRedirect(request.getContextPath() + "/Login");
+		}
 
-		per = perDao.findPer_id(per_id);
-		pd = pdDao.findPer_id(per_id);
-		pou = pouDao.getAll();
-		request.setAttribute("per", per);
-		request.setAttribute("pd", pd);
-		request.setAttribute("pou", pou);
-		request.getRequestDispatcher("Views/Permanent/EditPer.jsp").forward(request, response);
 	}
 
 	/**
@@ -75,10 +88,10 @@ public class EditPer extends HttpServlet {
 		item.setPer_id(Integer.parseInt(request.getParameter("per_id")));
 		item.setPer_name(request.getParameter("per_name"));
 		item.setUnit(request.getParameter("unit"));
-		
+
 		perDao.update(item);
-		
-		response.sendRedirect(request.getContextPath()+"/EditPer?per_id="+item.getPer_id());
+
+		response.sendRedirect(request.getContextPath() + "/EditPer?per_id=" + item.getPer_id());
 	}
 
 }

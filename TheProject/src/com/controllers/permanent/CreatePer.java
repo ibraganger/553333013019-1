@@ -47,12 +47,18 @@ public class CreatePer extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession ss = request.getSession(false);
-		Users gobalUser = (Users) ss.getAttribute("gobalUser");
-		if (gobalUser != null) {
-			request.getRequestDispatcher("Views/Permanent/CreatePer.jsp").forward(request, response);
+		String ssID = ss.getId();
+		if (ssID != null) {
+			Users gobalUser = (Users) ss.getAttribute("gobalUser");
+			if (gobalUser != null) {
+				request.getRequestDispatcher("Views/Permanent/CreatePer.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Login");
+			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Login");
 		}
+
 	}
 
 	/**
