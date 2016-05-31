@@ -1,4 +1,12 @@
-label.error{
+
+body {
+  font-family: 'Kanit', sans-serif;
+}
+/* ใช้เฉพาะหัวข้อ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Kanit', sans-serif;
+}
+label.error {
 	color: red;
 	font-size: 12px;
 }

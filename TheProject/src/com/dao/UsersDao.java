@@ -188,15 +188,23 @@ public class UsersDao {
 	}
 
 	public void add(Users user) {
-		String sql = "insert into users (user_code, username, title, password, first_name, last_name, address, phone, email, role, faculty_id, department_id)"
-				+ "values('" + user.getUser_code().trim() + "','" + user.getUsername().trim() + "','"
-				+ user.getTitle().trim() + "','" + user.getPassword().trim() + "','" + user.getFirst_name().trim()
-				+ "','" + user.getLast_name().trim() + "','" + user.getAddress().trim() + "','" + user.getPhone().trim()
-				+ "','" + user.getEmail().trim() + "','" + user.getRole().trim() + "','"
-				+ Integer.toString(user.getFaculty_id()) + "','" + Integer.toString(user.getDepartment_id()) + "');";
+		String sql = "call add_user('"+
+				user.getUser_code()+"','"+
+				user.getUsername()+"','"+
+				user.getTitle()+"','"+
+				user.getPassword()+"','"+
+				user.getFirst_name()+"','"+
+				user.getLast_name()+"','"+
+				user.getAddress()+"','"+
+				user.getPhone()+"','"+
+				user.getEmail()+"','"+
+				user.getRole()+"',"+
+				user.getFaculty_id()+","+
+				user.getDepartment_id()+",'"+
+				user.getLast_update()+"')";
 		try {
 			Statement st = connection.createStatement();
-			st.executeUpdate(sql);
+			st.executeQuery(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -216,16 +224,24 @@ public class UsersDao {
 	}
 
 	public void update(Users user) {
-		String sql = "UPDATE users SET " + "user_code = '" + user.getUser_code().trim() + "', " + "username = '"
-				+ user.getUsername().trim() + "', " + "title = '" + user.getTitle().trim() + "', " + "password = '"
-				+ user.getPassword().trim() + "', " + "first_name = '" + user.getFirst_name().trim() + "', "
-				+ "last_name = '" + user.getLast_name().trim() + "', " + "address = '" + user.getAddress().trim()
-				+ "', " + "phone = '" + user.getPhone().trim() + "', " + "email = '" + user.getEmail().trim() + "', "
-				+ "role = '" + user.getRole().trim() + "', " + "faculty_id = " + user.getFaculty_id() + ", "
-				+ "department_id = " + user.getDepartment_id() + " where user_id = " + user.getUser_id();
+		String sql = "call edit_user("+
+				user.getUser_id()+",'"+
+				user.getUser_code()+"','"+
+				user.getUsername()+"','"+
+				user.getTitle()+"','"+
+				user.getPassword()+"','"+
+				user.getFirst_name()+"','"+
+				user.getLast_name()+"','"+
+				user.getAddress()+"','"+
+				user.getPhone()+"','"+
+				user.getEmail()+"','"+
+				user.getRole()+"',"+
+				user.getFaculty_id()+","+
+				user.getDepartment_id()+",'"+
+				user.getLast_update()+"')";
 		try {
 			Statement st = connection.createStatement();
-			st.execute(sql);
+			st.executeQuery(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

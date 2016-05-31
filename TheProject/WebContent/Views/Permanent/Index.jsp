@@ -56,7 +56,8 @@
 						</form>
 					</div>
 					<div class="col-sm-12 text-right">
-						<a href="<%=request.getContextPath()%>/PrintPermanent"><i class="fa fa-print fa-2x fa-fw"></i>พิมพ์</a>
+						<a href="<%=request.getContextPath()%>/PrintPermanent"><i
+							class="fa fa-print fa-2x fa-fw"></i>พิมพ์</a>
 					</div>
 					<div class="col-sm-12">
 						<table class="table" id="dataTables">
@@ -95,6 +96,8 @@
 										href="<%=request.getContextPath() + "/EditPer?per_id=" + item.getPer_id()%>"><i
 											class="fa fa-gear"></i></a> | <a class="btn-delete"
 										data-id="<%=item.getPer_id()%>"
+										data-code="<%=item.getPer_code()%>"
+										data-name="<%=item.getPer_name()%>"
 										style="color: red; cursor: pointer;"><i
 											class="fa fa-trash"></i></a></td>
 									<%
@@ -122,7 +125,11 @@
 
 			$('.btn-delete').on('click', function() {
 				var per_id = $(this).data('id');
+				var text1 = 'รหัสวัสดุ : ';
+				var text2 = 'ชื่อวัสดุ : ';
 				$modal = $('.modal-delete');
+				$modal.find('.code').text(text1 + $(this).data('code'));
+				$modal.find('.name').text(text2 + $(this).data('name'));
 				$modal.modal('show');
 				$modal.find('.btn-comfirm-delete').on('click', function() {
 					$.ajax({
@@ -151,7 +158,10 @@
 					<h4 class="modal-title">ลบวัสดุ</h4>
 				</div>
 				<div class="modal-body">
-					<p>One fine body&hellip;</p>
+					<p>คุณต้องการดำเนินการลบวัสดุดังต่อไปนี้</p>
+					<p class="code"></p>
+					<p class="name"></p>
+					<p>ออกจากฐานข้อมูลของระบบ ระบบจะไม่สามารถกู้คืนข้อมูลได้ หากท่านต้องการดำเนินการลบ กรุณากด "ยืนยัน"</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>

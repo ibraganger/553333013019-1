@@ -15,3 +15,4 @@
 <link href="css/bootstrap-datepicker.css" rel="stylesheet"
 	type="text/css">
 <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
