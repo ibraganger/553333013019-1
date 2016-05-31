@@ -1,10 +1,24 @@
 
+@font-face{
+	font-family: Helvethaica;
+	src: url("fonts/DB-Helvethaica-X-webfont.woff");
+}
+@font-face{
+	font-family: SukhumvitTadmai;
+	src: url("fonts/SukhumvitTadmai.woff");
+}
+@font-face{
+	font-family: Kanit;
+	src: url("fonts/Kanit-Regular.ttf");
+}
+
+
 body {
-  font-family: 'Kanit', sans-serif;
+  font-family: Helvethaica, sans-serif;
 }
 /* ใช้เฉพาะหัวข้อ */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Helvethaica', sans-serif;
 }
 label.error {
 	color: red;
