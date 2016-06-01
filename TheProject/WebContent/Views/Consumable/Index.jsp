@@ -38,7 +38,7 @@
 							<button type="submit" class="btn btn-warning">
 								<i class="fa fa-search fa-fw"></i>ค้นหา
 							</button>
-							<a href="<%=request.getContextPath() + "/consumable"%>"
+							<a href="<%=request.getContextPath() + "/Consumable"%>"
 								class="btn btn-default"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
 							<a href="<%=request.getContextPath()%>/CreateCon"
 								class="btn btn-success"><i class="fa fa-plus fa-fw"></i>เพิ่ม</a>
@@ -224,6 +224,8 @@
 					<p>คุณต้องการดำเนินการลบ</p>
 					<p id="set_con_code"></p>
 					<p id="set_con_name"></p>
+					<p>ออกจากฐานข้อมูลของระบบ</p>
+					<p>ระบบไม่สามารถกู้คืนข้อมูลที่ถูกลบได้ หากท่านต้องการดำเนินการลบ กรุณากด "ลบวัสดุ"</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary btn-modal-delete">ลบวัสดุ</button>
