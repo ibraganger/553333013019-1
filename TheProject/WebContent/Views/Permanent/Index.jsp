@@ -51,8 +51,14 @@
 							</button>
 							<a href="<%=request.getContextPath() + "/Permanent"%>"
 								class="btn btn-default"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
+							<%
+								if (gobalUser.getRole().equals("admin")) {
+							%>
 							<a href="<%=request.getContextPath() + "/CreatePer"%>"
 								class="btn btn-warning"><i class="fa fa-plus fa-fw"></i>เพิ่มวัสดุ</a>
+							<%
+								}
+							%>
 						</form>
 					</div>
 					<div class="col-sm-12 text-right">
@@ -161,7 +167,8 @@
 					<p>คุณต้องการดำเนินการลบวัสดุดังต่อไปนี้</p>
 					<p class="code"></p>
 					<p class="name"></p>
-					<p>ออกจากฐานข้อมูลของระบบ ระบบจะไม่สามารถกู้คืนข้อมูลได้ หากท่านต้องการดำเนินการลบ กรุณากด "ยืนยัน"</p>
+					<p>ออกจากฐานข้อมูลของระบบ ระบบจะไม่สามารถกู้คืนข้อมูลได้
+						หากท่านต้องการดำเนินการลบ กรุณากด "ยืนยัน"</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
