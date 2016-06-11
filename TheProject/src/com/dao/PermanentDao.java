@@ -81,6 +81,7 @@ public class PermanentDao {
 		return null;
 	}
 
+
 	public Permanent findPer_id(int per_id) {
 		Permanent item = new Permanent();
 		String sql = "select * from permanent where per_id like '" + per_id + "';";

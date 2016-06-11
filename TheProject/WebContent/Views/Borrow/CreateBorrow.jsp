@@ -1,5 +1,14 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.model.PerDetails"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+
+<%
+	int count = 1;
+	List<PerDetails> assetList = (ArrayList<PerDetails>) request.getAttribute("assetList");
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -66,19 +75,20 @@
 							</div>
 							<div class="col-sm-12 form-inline">
 								<div class="form-group">
-									<input class="form-control" placeholder="รหัสวัสดุที่ต้องการเลิอก.....">
+									<input class="form-control"
+										placeholder="รหัสวัสดุที่ต้องการเลิอก.....">
 								</div>
 								<div class="form-group">
-									<a class="btn btn-warning" style="cursor: pointer;"><i
+									<a class="btn btn-warning btn-append" style="cursor: pointer;"><i
 										class="fa fa-plus fa-fw"></i>เพิ่ม</a>
 								</div>
 								<div class="form-group">
-									<a class="btn btn-info" style="cursor: pointer;"><i
+									<a class="btn btn-info btn-find" style="cursor: pointer;"><i
 										class="fa fa-search fa-fw"></i>ตรวจสอบวัสดุ</a>
 								</div>
 							</div>
 							<div class="col-sm-12">
-								<table class="table table-striped">
+								<table class="table table-striped" id="myTable">
 									<thead>
 										<tr>
 											<th class="text-center">#</th>
@@ -99,10 +109,94 @@
 		<!-- /#page-wrapper -->
 	</div>
 
+
+	<!-- modal find asset list  -->
+	<div class="modal fade modal-find" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">รายการวัสดุที่ยืมได้</h4>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<span class="input-group-addon">Filter</span> <input id="filter"
+							type="text" class="form-control" placeholder="Type here...">
+					</div>
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>รหัสวัสดุ</th>
+								<th>ชื่อวัสดุ</th>
+								<th>จัดการ</th>
+							</tr>
+						</thead>
+						<tbody class="searchable">
+							<%
+								for (PerDetails item : assetList) {
+							%>
+							<tr>
+								<td class="text-center"><%=count++%></td>
+								<td class="text-left"><%=item.getAsset_code()%></td>
+								<td class="text-left"><%=item.getAsset_name()%></td>
+								<td class="text-center"><a style="cursor: pointer;"
+									class="btn-select" data-code="<%=item.getAsset_code()%>"
+									data-name="<%=item.getAsset_name()%>">select</a></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-hideModal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#datetimepicker1').datepicker();
 			$('#datetimepicker2').datepicker();
+			var countTable = 1;
+			//call modal for show list asset
+			$('.btn-find').on('click', function() {
+				$modal = $('.modal-find');
+				//search in table modal
+				$('#filter').keyup(function() {
+					var rex = new RegExp($(this).val(), 'i');
+					$('.searchable tr').hide();
+					$('.searchable tr').filter(function() {
+						return rex.test($(this).text());
+					}).show();
+				});
+				//btn select asset to table list
+				$('.btn-select').on('click', function() {
+					var code = $(this).data('code');
+					var name = $(this).data('name');
+					var myTable = document.getElementById("myTable");
+					var row = myTable.insertRow(-1);
+					var cell0 = row.insertCell(0);
+					var cell1 = row.insertCell(1);
+					var cell2 = row.insertCell(2);
+					var cell3 = row.insertCell(3);
+					cell0.innerHTML = countTable++;
+					cell1.innerHTML = code;
+					cell2.innerHTML = name;
+					cell3.innerHTML = code;
+				});
+				$modal.modal('show');
+				$modal.find('.btn-hideModal').on('click', function() {
+					$modal.modal('hide');
+				});
+			});
+
 		})
 	</script>
 

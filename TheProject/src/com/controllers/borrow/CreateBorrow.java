@@ -1,6 +1,9 @@
 package com.controllers.borrow;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dao.BorrowDao;
+import com.dao.PerDetailsDao;
+import com.model.BorrowDB;
+import com.model.PerDetails;
 import com.model.Users;
 
 /**
@@ -20,6 +27,10 @@ public class CreateBorrow extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
+
+	private BorrowDao brDao = new BorrowDao();
+	private PerDetailsDao pdDao = new PerDetailsDao();
+
 	public CreateBorrow() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -38,7 +49,11 @@ public class CreateBorrow extends HttpServlet {
 		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser");
 			if (gobalUser != null) {
+
+				List<PerDetails> assetList = pdDao.searchStatus();
+				request.setAttribute("assetList", assetList);
 				request.getRequestDispatcher("Views/Borrow/CreateBorrow.jsp").forward(request, response);
+
 			} else {
 				response.sendRedirect(request.getContextPath() + "/Login");
 			}

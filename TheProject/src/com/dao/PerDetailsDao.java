@@ -43,6 +43,34 @@ public class PerDetailsDao {
 		return null;
 	}
 
+	public List<PerDetails> searchStatus() {
+		List<PerDetails> list = new ArrayList<PerDetails>();
+		String sql = "SELECT * FROM per_details where per_status like 'N';";
+		try {
+			Statement st = connect.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				PerDetails perDetails = new PerDetails();
+				perDetails.setAsset_code(rs.getString("asset_code"));
+				perDetails.setAsset_id(rs.getInt("asset_id"));
+				perDetails.setAsset_name(rs.getString("asset_name"));
+				perDetails.setNote(rs.getString("note"));
+				perDetails.setPer_id(rs.getInt("per_id"));
+				perDetails.setStatus(rs.getString("per_status"));
+				perDetails.setStorage(rs.getString("per_storage"));
+				perDetails.setUse_status(rs.getString("use_status"));
+				list.add(perDetails);
+			}
+			if (list != null) {
+				return list;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public PerDetails findAssetCode(String asset_code) {
 
 		String sql = "SELECT * FROM per_details where asset_code like '" + asset_code + "';";
