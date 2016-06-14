@@ -1,6 +1,7 @@
 package com.controllers.find;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dao.PerDetailsDao;
-import com.dao.PermanentDao;
+import com.google.gson.Gson;
 import com.model.PerDetails;
-import com.model.Permanent;
 
 /**
  * Servlet implementation class FindPerCode
@@ -37,11 +37,13 @@ public class FindPerCode extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		String code = request.getParameter("code");
 		PerDetails item = perDao.findAssetCode(code);
 		if (item != null) {
-			response.getWriter().write(item.getAsset_name());
+			String jsonResult = new Gson().toJson(item);
+			response.getWriter().write(jsonResult);
 		}else{
 			response.getWriter().write("null");
 		}

@@ -164,7 +164,7 @@
 			$('#datetimepicker1').datepicker();
 			$('#datetimepicker2').datepicker();
 			var countTable = 1;
-			
+
 			//call modal for show list asset
 			$('.btn-find').on('click', function() {
 				$modal = $('.modal-find');
@@ -183,13 +183,13 @@
 				});
 				$modal.modal('show');
 			});
-			
+
 			//remove item from table list
 			$("#myTable").on('click', '.remCF', function() {
 				$(this).parent().parent().remove();
 				countTable--;
 			});
-			
+
 			//append item to table list
 			$('.btn-append').on('click', function() {
 				var code = $('#search').val();
@@ -204,8 +204,8 @@
 						if (data != 'null') {
 							var item = {
 								countList : countTable++,
-								code : code,
-								name : data
+								code : data.asset_code,
+								name : data.asset_name
 							}
 							var templete = $('#add-to-table').html();
 							var rendered = Mustache.render(templete, item);
