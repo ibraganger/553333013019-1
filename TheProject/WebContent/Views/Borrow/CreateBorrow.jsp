@@ -75,7 +75,7 @@
 							</div>
 							<div class="col-sm-12 form-inline">
 								<div class="form-group">
-									<input class="form-control"
+									<input class="form-control" name="search" id="search"
 										placeholder="รหัสวัสดุที่ต้องการเลิอก.....">
 								</div>
 								<div class="form-group">
@@ -91,7 +91,6 @@
 								<table class="table table-striped" id="myTable">
 									<thead>
 										<tr>
-											<th class="text-center">#</th>
 											<th class="text-center">รหัสวัสดุ</th>
 											<th class="text-center">ชื่อวัสดุ</th>
 											<th class="text-center">จัดการ</th>
@@ -145,7 +144,7 @@
 								<td class="text-left"><%=item.getAsset_name()%></td>
 								<td class="text-center"><a style="cursor: pointer;"
 									class="btn-select" data-code="<%=item.getAsset_code()%>"
-									data-name="<%=item.getAsset_name()%>">select</a></td>
+									data-name="<%=item.getAsset_name()%>" data-dismiss="modal">select</a></td>
 							</tr>
 							<%
 								}
@@ -154,7 +153,7 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-hideModal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -165,6 +164,7 @@
 			$('#datetimepicker1').datepicker();
 			$('#datetimepicker2').datepicker();
 			var countTable = 1;
+			
 			//call modal for show list asset
 			$('.btn-find').on('click', function() {
 				$modal = $('.modal-find');
@@ -176,29 +176,61 @@
 						return rex.test($(this).text());
 					}).show();
 				});
-				//btn select asset to table list
+				//btn select asset code to textbox search
 				$('.btn-select').on('click', function() {
 					var code = $(this).data('code');
-					var name = $(this).data('name');
-					var myTable = document.getElementById("myTable");
-					var row = myTable.insertRow(-1);
-					var cell0 = row.insertCell(0);
-					var cell1 = row.insertCell(1);
-					var cell2 = row.insertCell(2);
-					var cell3 = row.insertCell(3);
-					cell0.innerHTML = countTable++;
-					cell1.innerHTML = code;
-					cell2.innerHTML = name;
-					cell3.innerHTML = code;
+					$('#search').val(code);
 				});
 				$modal.modal('show');
-				$modal.find('.btn-hideModal').on('click', function() {
-					$modal.modal('hide');
-				});
 			});
-
+			
+			//remove item from table list
+			$("#myTable").on('click', '.remCF', function() {
+				$(this).parent().parent().remove();
+				countTable--;
+			});
+			
+			//append item to table list
+			$('.btn-append').on('click', function() {
+				var code = $('#search').val();
+				if (code != "" | code != null) {
+					$.ajax({
+						url : 'FindPerCode',
+						type : 'get',
+						data : {
+							code : code
+						}
+					}).done(function(data) {
+						if (data != 'null') {
+							var item = {
+								countList : countTable++,
+								code : code,
+								name : data
+							}
+							var templete = $('#add-to-table').html();
+							var rendered = Mustache.render(templete, item);
+							$('#myTable tr:last').after(rendered);
+						}
+					});
+				}
+				$('#search').val("");
+			});
 		})
 	</script>
-
+	<script type="text/html" id="add-to-table">
+	<tr>
+		<td class="text-left">
+			<input type="hidden" name="code" id="code" value="{{code}}">{{code}}
+		</td>
+		<td class="text-left">
+			<input type="hidden" name="name" id="name" value="{{name}}">{{name}}
+		</td>
+		<td class="text-center">
+			<a style="cursor: pointer;" href="javascript:void(0);" class="remCF">
+				<i class="fa fa-trash-o fa-fw"></i>ลบ
+			</a>
+		</td>
+	</tr>
+	</script>
 </body>
 </html>
