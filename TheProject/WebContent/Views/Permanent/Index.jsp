@@ -46,16 +46,16 @@
 									</div>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-success">
+							<button type="submit" class="btn btn-info">
 								<i class="fa fa-search fa-fw"></i>ค้นหา
 							</button>
 							<a href="<%=request.getContextPath() + "/Permanent"%>"
-								class="btn btn-default"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
+								class="btn btn-warning"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
 							<%
 								if (gobalUser.getRole().equals("admin")) {
 							%>
 							<a href="<%=request.getContextPath() + "/CreatePer"%>"
-								class="btn btn-warning"><i class="fa fa-plus fa-fw"></i>เพิ่มวัสดุ</a>
+								class="btn btn-success"><i class="fa fa-plus fa-fw"></i>เพิ่มวัสดุ</a>
 							<%
 								}
 							%>

@@ -1,7 +1,6 @@
-package com.controllers.borrow;
+package com.controllers.find;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,29 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.dao.BorrowDao;
 import com.dao.PerDetailsDao;
-import com.model.BorrowDB;
+import com.google.gson.Gson;
 import com.model.PerDetails;
-import com.model.Users;
 
 /**
- * Servlet implementation class CreateBorrow
+ * Servlet implementation class FindAssetList
  */
-@WebServlet("/CreateBorrow")
-public class CreateBorrow extends HttpServlet {
+@WebServlet("/FindAssetList")
+public class FindAssetList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 
-	private BorrowDao brDao = new BorrowDao();
 	private PerDetailsDao pdDao = new PerDetailsDao();
 
-	public CreateBorrow() {
+	public FindAssetList() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -42,24 +37,30 @@ public class CreateBorrow extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-		HttpSession ss = request.getSession(false);
-		String ssID = ss.getId();
-		if (ssID != null) {
-			Users gobalUser = (Users) ss.getAttribute("gobalUser");
-			if (gobalUser != null) {
-
-				List<PerDetails> assetList = pdDao.searchStatus();
-				request.setAttribute("assetList", assetList);
-				request.getRequestDispatcher("Views/Borrow/CreateBorrow.jsp").forward(request, response);
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		String[] asset_id = request.getParameterValues("asset_id");
+		List<PerDetails> items = pdDao.getAll();
+		String jsonResult = "";
+		if (asset_id != null) {
+			if (items != null) {
+				for (String number : asset_id) {
+					for (int i = 0; i < items.toArray().length; i++) {
+						if (items.get(i).getAsset_id() == Integer.parseInt(number)) {
+							items.remove(i);
+						}
+					}
+				}
+				jsonResult = new Gson().toJson(items);
+				response.getWriter().write(jsonResult);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Login");
+				response.getWriter().write("null");
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Login");
+			jsonResult = new Gson().toJson(items);
+			response.getWriter().write(jsonResult);
 		}
-
 	}
 
 	/**
@@ -68,8 +69,8 @@ public class CreateBorrow extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

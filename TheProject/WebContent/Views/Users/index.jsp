@@ -115,13 +115,13 @@
 										</select>
 									</div>
 									<div class="form-group">
-										<button type="submit" class="btn btn-warning">
+										<button type="submit" class="btn btn-info">
 											<i class="fa fa-search fa-fw"></i>ค้นหา
 										</button>
 									</div>
 									<div class="form-group">
 										<a href="<%=request.getContextPath()%>/UserInfo"
-											class="btn btn-default"> <i class="fa fa-refresh fa-fw"></i>รีเซ็ต
+											class="btn btn-warning"> <i class="fa fa-refresh fa-fw"></i>รีเซ็ต
 										</a>
 									</div>
 									<div class="form-group">

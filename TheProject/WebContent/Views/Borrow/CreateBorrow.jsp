@@ -8,6 +8,7 @@
 <%
 	int count = 1;
 	List<PerDetails> assetList = (ArrayList<PerDetails>) request.getAttribute("assetList");
+	Users gobalUser = (Users) session.getAttribute("gobalUser");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,78 +29,89 @@
 					<div class="col-lg-12">
 						<h1 class="page-header">สร้างเอกสารยืมวัสดุ</h1>
 					</div>
-					<div class="col-sm-12">
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label>เลขที่เอกสาร</label> <input class="form-control"
-									placeholder="เลขที่เอกสาร">
-							</div>
-							<div class="form-group">
-								<label>ชื่อผู้ยืม</label> <input class="form-control"
-									placeholder="ชื่อผู้ยืม">
-							</div>
-							<div class="form-group">
-								<label>เพื่อใช้ในงาน</label>
-								<textarea class="form-control" rows="" cols=""
-									placeholder="เพื่อใช้ในงาน"></textarea>
+					<form action="<%=request.getContentType()%>/CreateBorrow"
+						method="post" id="form-create">
+						<div class="col-sm-12">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>เลขที่เอกสาร</label> <input name="document_no"
+										id="document_no" class="form-control"
+										placeholder="เลขที่เอกสาร">
+								</div>
+								<div class="form-group">
+									<label>ชื่อผู้ยืม</label> <input
+										value="<%=gobalUser.getFirst_name() + " " + gobalUser.getLast_name()%>"
+										class="form-control" placeholder="ชื่อผู้ยืม">
+								</div>
+								<div class="form-group">
+									<label>เพื่อใช้ในงาน</label>
+									<textarea class="form-control" rows="" cols=""
+										placeholder="เพื่อใช้ในงาน" name="use_for" id="use_for"></textarea>
 
-							</div>
-							<div class="form-group">
-								<label>วันที่ต้องการรับวัสดุ</label>
+								</div>
 								<div class="form-group">
-									<div class='input-group date' id='datetimepicker1'>
-										<input type='text' class="form-control"
-											placeholder="วันที่ต้องการรับวัสดุ" /> <span
-											class="input-group-addon"> <span
-											class="fa fa-calendar"></span>
-										</span>
+									<label>วันที่ต้องการรับวัสดุ</label>
+									<div class="form-group">
+										<div class='input-group date' id='datetimepicker1'>
+											<input name="date" id="date" type='text' class="form-control"
+												placeholder="วันที่ต้องการรับวัสดุ" /> <span
+												class="input-group-addon"> <span
+												class="fa fa-calendar"></span>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label>กำหนดส่งคืนวัสดุ</label>
+									<div class="form-group">
+										<div class='input-group date' id='datetimepicker2'>
+											<input name="return_date" id="return_date" type='text'
+												class="form-control" placeholder="กำหนดส่งคืนวัสดุ" /> <span
+												class="input-group-addon"> <span
+												class="fa fa-calendar"></span>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-6"
+										style="padding-left: 0; padding-right: 0;">
+										<button type="submit" class="btn btn-success btn-block">สร้างเอกสาร</button>
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<label>กำหนดส่งคืนวัสดุ</label>
-								<div class="form-group">
-									<div class='input-group date' id='datetimepicker2'>
-										<input type='text' class="form-control"
-											placeholder="กำหนดส่งคืนวัสดุ" /> <span
-											class="input-group-addon"> <span
-											class="fa fa-calendar"></span>
-										</span>
+							<div class="col-sm-8">
+								<div class="col-sm-12">
+									<label>เลือกวัสดุ</label>
+								</div>
+								<div class="col-sm-12 form-inline">
+									<div class="form-group">
+										<input class="form-control" name="search" id="search"
+											placeholder="รหัสวัสดุที่ต้องการเลิอก.....">
+									</div>
+									<div class="form-group">
+										<a class="btn btn-warning btn-append" style="cursor: pointer;"><i
+											class="fa fa-plus fa-fw"></i>เพิ่ม</a>
+									</div>
+									<div class="form-group">
+										<a class="btn btn-info btn-find" style="cursor: pointer;"><i
+											class="fa fa-search fa-fw"></i>ตรวจสอบวัสดุ</a>
 									</div>
 								</div>
+								<div class="col-sm-12">
+									<table class="table table-striped" id="myTable">
+										<thead>
+											<tr>
+												<th class="text-center">รหัสวัสดุ</th>
+												<th class="text-center">ชื่อวัสดุ</th>
+												<th class="text-center">จัดการ</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
 							</div>
 						</div>
-						<div class="col-sm-8">
-							<div class="col-sm-12">
-								<label>เลือกวัสดุ</label>
-							</div>
-							<div class="col-sm-12 form-inline">
-								<div class="form-group">
-									<input class="form-control" name="search" id="search"
-										placeholder="รหัสวัสดุที่ต้องการเลิอก.....">
-								</div>
-								<div class="form-group">
-									<a class="btn btn-warning btn-append" style="cursor: pointer;"><i
-										class="fa fa-plus fa-fw"></i>เพิ่ม</a>
-								</div>
-								<div class="form-group">
-									<a class="btn btn-info btn-find" style="cursor: pointer;"><i
-										class="fa fa-search fa-fw"></i>ตรวจสอบวัสดุ</a>
-								</div>
-							</div>
-							<div class="col-sm-12">
-								<table class="table table-striped" id="myTable">
-									<thead>
-										<tr>
-											<th class="text-center">รหัสวัสดุ</th>
-											<th class="text-center">ชื่อวัสดุ</th>
-											<th class="text-center">จัดการ</th>
-										</tr>
-									</thead>
-								</table>
-							</div>
-						</div>
-					</div>
+					</form>
 				</div>
 				<!-- /.row -->
 			</div>
@@ -135,20 +147,6 @@
 							</tr>
 						</thead>
 						<tbody class="searchable">
-							<%
-								for (PerDetails item : assetList) {
-							%>
-							<tr>
-								<td class="text-center"><%=count++%></td>
-								<td class="text-left"><%=item.getAsset_code()%></td>
-								<td class="text-left"><%=item.getAsset_name()%></td>
-								<td class="text-center"><a style="cursor: pointer;"
-									class="btn-select" data-code="<%=item.getAsset_code()%>"
-									data-name="<%=item.getAsset_name()%>" data-dismiss="modal">select</a></td>
-							</tr>
-							<%
-								}
-							%>
 						</tbody>
 					</table>
 				</div>
@@ -168,8 +166,17 @@
 			//call modal for show list asset
 			$('.btn-find').on('click', function() {
 				$modal = $('.modal-find');
+				$.ajax({
+					url : 'FindAssetList',
+					type : 'get',
+					data : $('#myTable :input').serialize()
+				}).done(function(data) {
+					var template = $('#table-modal').html();
+					var rendered = Mustache.render(template, data);
+					$modal.find('.searchable').html(rendered);
+				});
 				//search in table modal
-				$('#filter').keyup(function() {
+				$modal.find('#filter').keyup(function() {
 					var rex = new RegExp($(this).val(), 'i');
 					$('.searchable tr').hide();
 					$('.searchable tr').filter(function() {
@@ -179,7 +186,7 @@
 				//btn select asset code to textbox search
 				$('.btn-select').on('click', function() {
 					var code = $(this).data('code');
-					$('#search').val(code);
+					alert(code);
 				});
 				$modal.modal('show');
 			});
@@ -204,6 +211,7 @@
 						if (data != 'null') {
 							var item = {
 								countList : countTable++,
+								id : data.asset_id,
 								code : data.asset_code,
 								name : data.asset_name
 							}
@@ -215,10 +223,36 @@
 				}
 				$('#search').val("");
 			});
+
+			$('#form-create').validate({
+				rules : {
+					document_no : {
+						required : true
+					},
+					date : {
+						required : true
+					},
+					return_date : {
+						required : true
+					}
+				},
+				messages : {
+					document_no : {
+						required : 'ระบุเลขที่เอกสาร'
+					},
+					date : {
+						required : 'ระบุวันที่ต้องการรับวัสดุ'
+					},
+					return_date : {
+						required : 'ระบุกำหนดส่งคืนวัสดุ'
+					}
+				}
+			});
 		})
 	</script>
 	<script type="text/html" id="add-to-table">
 	<tr>
+		<input type="hidden" name="asset_id" id="asset_id" value="{{id}}">{{id}}
 		<td class="text-left">
 			<input type="hidden" name="code" id="code" value="{{code}}">{{code}}
 		</td>
@@ -232,5 +266,21 @@
 		</td>
 	</tr>
 	</script>
+
+
+	<!--/ template modal show asset list/-->
+	<script type="text/html" id="table-modal">
+					{{#.}}
+					<tr>
+						<td class="text-center"></td>
+						<td class="text-left">{{asset_code}}</td>
+						<td class="text-left">{{asset_name}}</td>
+						<td class="text-center"><a style="cursor: pointer;"
+							class="btn-select" data-code="{{asset_code}}"
+							data-name="{{asset_name}}" data-dismiss="modal">select</a></td>
+					</tr>
+					{{/.}}
+	</script>
+
 </body>
 </html>

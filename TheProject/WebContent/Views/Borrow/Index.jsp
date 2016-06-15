@@ -47,11 +47,11 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-warning">
+								<button type="submit" class="btn btn-info">
 									<i class="fa fa-search fa-fw"></i>ค้นหา
 								</button>
 								<a href="<%=request.getContextPath()%>/Borrow"
-									class="btn btn-default"><i class="fa fa-refresh fa-fw"></i>ระเซ็ต</a>
+									class="btn btn-warning"><i class="fa fa-refresh fa-fw"></i>ระเซ็ต</a>
 								<a href="<%=request.getContextPath()%>/CreateBorrow"
 									class="btn btn-success"><i class="fa fa-plus fa-fw"></i>สร้างเอกสาร</a>
 							</div>

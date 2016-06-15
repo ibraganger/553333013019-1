@@ -35,11 +35,11 @@
 									value="<%=request.getAttribute("search")%>"
 									class="form-control" placeholder="ค้นหารหัสวัสดุ,ชื่อวัสดุ">
 							</div>
-							<button type="submit" class="btn btn-warning">
+							<button type="submit" class="btn btn-info">
 								<i class="fa fa-search fa-fw"></i>ค้นหา
 							</button>
 							<a href="<%=request.getContextPath() + "/Consumable"%>"
-								class="btn btn-default"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
+								class="btn btn-warning"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
 							<%
 								if (gobalUser.getRole().equals("admin")) {
 							%>
