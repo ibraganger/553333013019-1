@@ -29,8 +29,8 @@
 					<div class="col-lg-12">
 						<h1 class="page-header">สร้างเอกสารยืมวัสดุ</h1>
 					</div>
-					<form action="<%=request.getContentType()%>/CreateBorrow"
-						method="post" id="form-create">
+					<form method="post" id="form-create">
+					<input type="hidden" name="user_id" id="user_id" value="<%=gobalUser.getUser_id()%>">
 						<div class="col-sm-12">
 							<div class="col-sm-4">
 								<div class="form-group">
@@ -76,7 +76,7 @@
 								<div class="form-group">
 									<div class="col-sm-6"
 										style="padding-left: 0; padding-right: 0;">
-										<button type="submit" class="btn btn-success btn-block">สร้างเอกสาร</button>
+										<button type="button" class="btn btn-success btn-block btn-create">สร้างเอกสาร</button>
 									</div>
 								</div>
 							</div>
@@ -151,7 +151,7 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -227,25 +227,69 @@
 			$('#form-create').validate({
 				rules : {
 					document_no : {
-						required : true
+						required : true,
+
+						remote : {
+							url : 'DuplicateDocBorrow',
+							type : 'get',
+							data : {
+								document_no : function() {
+									return $('#document_no').val();
+								}
+							}
+						}
+					},
+					use_for : {
+						maxlength : 200
 					},
 					date : {
-						required : true
+						required : true,
+						maxlength : 200
 					},
 					return_date : {
-						required : true
+						required : true,
+						maxlength : 200
 					}
 				},
 				messages : {
 					document_no : {
-						required : 'ระบุเลขที่เอกสาร'
+						required : 'ระบุเลขที่เอกสาร',
+						maxlength : 'ไม่เกิน 200 ตัวอักษร',
+						remote : 'เลขที่เอกสารมีอยู่แล้ว'
+					},
+					use_for : {
+						maxlength : 'ไม่เกิน 200 ตัวอักษร'
 					},
 					date : {
-						required : 'ระบุวันที่ต้องการรับวัสดุ'
+						required : 'ระบุวันที่ต้องการรับวัสดุ',
+						maxlength : 'ไม่เกิน 200 ตัวอักษร'
 					},
 					return_date : {
-						required : 'ระบุกำหนดส่งคืนวัสดุ'
+						required : 'ระบุกำหนดส่งคืนวัสดุ',
+						maxlength : 'ไม่เกิน 200 ตัวอักษร'
 					}
+				}
+			});
+			
+			
+			//create borrow form
+			$('.btn-create').on('click',function(){
+				var asset_id = $('#myTable input[id=\"asset_id\"]').serialize();
+				if(asset_id != ''){
+ 					var validateForm =	$('#form-create').valid();
+					if(validateForm != 0){
+						var formJson = $('#form-create input,textarea').serialize();
+						alert(formJson);
+						$.ajax({
+							url : 'CreateBorrow',
+							type : 'POST',
+							date : formJson
+						}).done(function(){
+							window.location.replace("Borrow");
+						})
+					} 
+				}else{
+					alert('กรุณาเลือกวัสดุที่ต้องการยืม');
 				}
 			});
 		})
@@ -253,11 +297,9 @@
 	<script type="text/html" id="add-to-table">
 	<tr>
 		<input type="hidden" name="asset_id" id="asset_id" value="{{id}}">{{id}}
-		<td class="text-left">
-			<input type="hidden" name="code" id="code" value="{{code}}">{{code}}
+		<td class="text-left">{{code}}
 		</td>
-		<td class="text-left">
-			<input type="hidden" name="name" id="name" value="{{name}}">{{name}}
+		<td class="text-left">{{name}}
 		</td>
 		<td class="text-center">
 			<a style="cursor: pointer;" href="javascript:void(0);" class="remCF">

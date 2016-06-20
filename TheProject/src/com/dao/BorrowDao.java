@@ -45,4 +45,60 @@ public class BorrowDao {
 		return null;
 	}
 
+	public List<BorrowDB> serachBorrow(String document_no, String date, String return_date, String status) {
+		List<BorrowDB> items = new ArrayList<BorrowDB>();
+		String sql = "call search borrow(" + "'%" + document_no + "%'" + "'%" + date + "%'" + "'%" + return_date + "%'"
+				+ "'%" + status + "%')";
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				BorrowDB obj = new BorrowDB();
+				obj.setBor_id(rs.getInt("bor_id"));
+				obj.setDate(rs.getString("date"));
+				obj.setDocument_no(rs.getString("document_no"));
+				obj.setNote(rs.getString("note"));
+				obj.setReturn_date(rs.getString("return_date"));
+				obj.setStatus(rs.getString("status"));
+				obj.setUse_for(rs.getString("use_for"));
+				obj.setUser_id(rs.getInt("user_id"));
+				items.add(obj);
+			}
+			if (items != null) {
+				return items;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public BorrowDB findDoc(String document_no) {
+		BorrowDB obj = new BorrowDB();
+		String sql = "select * from borrow where document_no like '" + document_no + "';";
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+
+				obj.setBor_id(rs.getInt("bor_id"));
+				obj.setDate(rs.getString("date"));
+				obj.setDocument_no(rs.getString("document_no"));
+				obj.setNote(rs.getString("note"));
+				obj.setReturn_date(rs.getString("return_date"));
+				obj.setStatus(rs.getString("status"));
+				obj.setUse_for(rs.getString("use_for"));
+				obj.setUser_id(rs.getInt("user_id"));
+			}
+			if (obj.getDocument_no() != null) {
+				return obj;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
