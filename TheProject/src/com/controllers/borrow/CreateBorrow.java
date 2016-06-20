@@ -1,7 +1,6 @@
 package com.controllers.borrow;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.BorrowDao;
+import com.dao.BorrowDetailsDao;
 import com.dao.PerDetailsDao;
-import com.model.BorrowDB;
 import com.model.PerDetails;
 import com.model.Users;
 
@@ -27,10 +26,11 @@ public class CreateBorrow extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-
+	
 	private BorrowDao brDao = new BorrowDao();
 	private PerDetailsDao pdDao = new PerDetailsDao();
-
+	private BorrowDetailsDao brdDao = new BorrowDetailsDao();
+	
 	public CreateBorrow() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -42,8 +42,6 @@ public class CreateBorrow extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
 		HttpSession ss = request.getSession(false);
 		String ssID = ss.getId();
 		if (ssID != null) {
@@ -59,7 +57,6 @@ public class CreateBorrow extends HttpServlet {
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Login");
 		}
-
 	}
 
 	/**
@@ -68,17 +65,9 @@ public class CreateBorrow extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		request.setCharacterEncoding("utf-8");
-		String[] asset_id = request.getParameterValues("asset_id");
-		BorrowDB item = new BorrowDB();
-		item.setDate(request.getParameter("date"));
-		item.setDocument_no(request.getParameter("document_no"));
-		item.setNote(request.getParameter("note"));
-		item.setReturn_date(request.getParameter("return_date"));
-		item.setStatus("Waiting");
-		item.setUse_for(request.getParameter("use_for"));
-		item.setUser_id(Integer.parseInt(request.getParameter("user_id")));
+		String aa = request.getParameter("user_id");
+		
+		aa = aa;
 	}
 
 }

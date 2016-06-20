@@ -100,5 +100,25 @@ public class BorrowDao {
 		}
 		return null;
 	}
+	
+	public void add(BorrowDB item) {
+		String sql = "call add_borrow("+
+					 "'"+item.getDocument_no()+"',"+
+					 "'"+item.getUse_for()+"',"+
+					 "'"+item.getDate()+"',"+
+					 "'"+item.getReturn_date()+"',"+
+					 "'"+item.getStatus()+"',"+
+					 "'"+item.getNote()+"',"+
+					 item.getUser_id()+
+					 ")";
+		try {
+			Statement st = con.createStatement();
+			st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 }

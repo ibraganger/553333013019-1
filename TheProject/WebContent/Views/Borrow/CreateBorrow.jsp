@@ -29,7 +29,7 @@
 					<div class="col-lg-12">
 						<h1 class="page-header">สร้างเอกสารยืมวัสดุ</h1>
 					</div>
-					<form method="post" id="form-create">
+					<form id="form-create">
 					<input type="hidden" name="user_id" id="user_id" value="<%=gobalUser.getUser_id()%>">
 						<div class="col-sm-12">
 							<div class="col-sm-4">
@@ -281,9 +281,9 @@
 						var formJson = $('#form-create input,textarea').serialize();
 						alert(formJson);
 						$.ajax({
-							url : 'CreateBorrow',
-							type : 'POST',
-							date : formJson
+							url : "CreateBorrow",
+							type : "POST",
+							date : formJson,
 						}).done(function(){
 							window.location.replace("Borrow");
 						})

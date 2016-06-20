@@ -6,6 +6,13 @@ public class BorrowDetails {
 	private int bor_id;
 	private String asset_code;
 	private String asset_name;
+	private int asset_id;
+	public int getAsset_id() {
+		return asset_id;
+	}
+	public void setAsset_id(int asset_id) {
+		this.asset_id = asset_id;
+	}
 	public int getId() {
 		return id;
 	}

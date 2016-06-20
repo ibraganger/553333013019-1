@@ -37,5 +37,20 @@ public class BorrowDetailsDao {
 		}
 		return null;
 	}
+	
+	public void add(BorrowDetails item) {
+		String sql = "call add_borrow_details("
+					 +item.getBor_id()+","+
+					 "'"+item.getAsset_code()+"',"+
+					 "'"+item.getAsset_name()+"',"+
+					 item.getAsset_id()+")";
+		try {
+			Statement st = con.createStatement();
+			st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
