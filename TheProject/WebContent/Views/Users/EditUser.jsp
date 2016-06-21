@@ -11,6 +11,7 @@
 	ArrayList<Department> listDp = (ArrayList<Department>) request.getAttribute("listDp");
 	ArrayList<TitleName> titleList = (ArrayList<TitleName>) request.getAttribute("titleList");
 	Users userEdit = (Users) request.getAttribute("userEdit");
+	Users gobalUser = (Users) request.getSession().getAttribute("gobalUser");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -168,6 +169,14 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-sm-3 control-label">รหัสผ่านซ้ำ</label>
+								<div class="col-sm-9">
+									<input name="re_password" id="re_password"
+										value="<%=userEdit.getPassword()%>" type="password"
+										class="form-control" placeholder="รหัสผ่านซ้ำ">
+								</div>
+							</div>
+							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-3 control-label">อีเมลล์</label>
 								<div class="col-sm-9">
 									<input name="email" type="email" class="form-control"
@@ -175,6 +184,9 @@
 										placeholder="อีเมลล์">
 								</div>
 							</div>
+							<%
+								if (gobalUser.getRole().equals("admin")) {
+							%>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">บทบาท</label>
 								<div class="col-sm-9">
@@ -207,6 +219,9 @@
 									}
 								%>
 							</div>
+							<%
+								}
+							%>
 							<div class="form-group">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-4">
@@ -318,6 +333,10 @@
 					password : {
 						required : true
 					},
+					re_password : {
+						required : true,
+						equalTo : "#password"
+					},
 					first_name : {
 						maxlength : 100,
 						required : true
@@ -349,6 +368,11 @@
 					password : {
 						required : "ระบุรหัสผ่าน",
 						maxlength : "สูงสุด 50 ตัวอักษร",
+					},
+					re_password : {
+						required : "ระบุรหัสผ่านอีกซ้ำ",
+						maxlength : "สูงสุด 50 ตัวอักษร",
+						equalTo : "รหัสผ่านไม่ตรงกัน"
 					},
 					email : {
 						maxlength : "สูงสุด 100 ตัวอักษร",

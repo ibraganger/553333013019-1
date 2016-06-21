@@ -95,7 +95,7 @@ public class UserInfo extends HttpServlet {
 					request.setAttribute("department_id", dp_id);
 					request.getRequestDispatcher("Views/Users/index.jsp").forward(request, response);
 				} else {
-					response.sendRedirect(request.getContextPath() + "/NullPage");
+					response.sendRedirect(request.getContextPath() + "/Permanent");
 				}
 			} else {
 				response.sendRedirect(request.getContextPath() + "/Login");

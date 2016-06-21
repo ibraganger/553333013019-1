@@ -152,6 +152,7 @@
 									<tbody>
 										<%
 											for (Users item : listUser) {
+												if (!item.getUsername().equals("admin")) {
 										%>
 										<tr>
 											<td class="text-center"><%=count++%></td>
@@ -162,6 +163,15 @@
 											<td class="text-center"><%=dpDao.find(item.getDepartment_id()).getDepartment_name()%></td>
 											<td class="text-center"><%=item.getRole()%></td>
 											<td class="text-center"><%=item.getStatus()%></td>
+											<%
+												if (user.getUsername().equals(item.getUsername())) {
+											%>
+											<td class="text-center"><a
+												href="EditUser?username=<%=item.getUsername()%>"><i
+													class="fa fa-gear"></i></a></td>
+											<%
+												} else {
+											%>
 											<td class="text-center"><a
 												href="EditUser?username=<%=item.getUsername()%>"><i
 													class="fa fa-gear"></i></a> | <a
@@ -170,8 +180,12 @@
 													data-id="<%=item.getUser_id()%>"
 													data-username="<%=item.getUsername()%>"
 													data-code="<%=item.getUser_code()%>"></i></a></td>
+											<%
+												}
+											%>
 										</tr>
 										<%
+											}
 											}
 										%>
 									</tbody>

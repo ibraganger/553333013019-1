@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.dao.DepartmentDao;
 import com.dao.FacultyDao;
@@ -83,6 +84,7 @@ public class EditUser extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		Users user = new Users();
+		Users gobalUser = (Users) request.getSession().getAttribute("gobalUser");
 		user.setUser_id(Integer.parseInt(request.getParameter("user_id")));
 		user.setAddress(request.getParameter("address"));
 		user.setDepartment_id(Integer.parseInt(request.getParameter("department_id")));
@@ -100,7 +102,11 @@ public class EditUser extends HttpServlet {
 
 		if (user != null) {
 			userDao.update(user);
-			response.sendRedirect(request.getContextPath() + "/UserInfo");
+			if (gobalUser.getRole().equals("admin")) {
+				response.sendRedirect(request.getContextPath() + "/UserInfo");
+			}else{
+				response.sendRedirect(request.getContextPath() + "/Permanent");
+			}
 		}
 	}
 
