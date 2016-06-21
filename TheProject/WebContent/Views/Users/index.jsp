@@ -145,45 +145,33 @@
 											<th class="text-center">คณะ</th>
 											<th class="text-center">สาขาวิชา</th>
 											<th class="text-center">สิทธิ์</th>
+											<th class="text-center">สถานะ</th>
 											<th class="text-center">จัดการ</th>
 										</tr>
 									</thead>
 									<tbody>
 										<%
-											for (Users list : listUser) {
-												if (!list.getUsername().equals("admin")) {
+											for (Users item : listUser) {
 										%>
 										<tr>
 											<td class="text-center"><%=count++%></td>
-											<td><%=list.getUser_code()%></td>
-											<td><%=list.getUsername()%></td>
-											<td><%=list.getFirst_name() + " " + list.getLast_name()%></td>
-											<td class="text-center"><%=fcDao.find(list.getFaculty_id()).getFaculty_name()%></td>
-											<td class="text-center"><%=dpDao.find(list.getDepartment_id()).getDepartment_name()%></td>
-											<td class="text-center"><%=list.getRole()%></td>
-											<td class="text-center">
-												<%
-													if (gobalUser.getUsername().equals(list.getUsername())) {
-												%> <a
-												href="<%=request.getContextPath() + "/EditUser?username=" + list.getUsername()%>"><i
-													class="fa fa-gear"></i></a> | <a
-												style="cursor: not-allowed; color: gray;"><i
-													class="fa fa-trash"></i></a> <%
- 	} else {
- %> <a
-												href="<%=request.getContextPath() + "/EditUser?username=" + list.getUsername()%>"><i
+											<td><%=item.getUser_code()%></td>
+											<td><%=item.getUsername()%></td>
+											<td><%=item.getFirst_name() + " " + item.getLast_name()%></td>
+											<td class="text-center"><%=fcDao.find(item.getFaculty_id()).getFaculty_name()%></td>
+											<td class="text-center"><%=dpDao.find(item.getDepartment_id()).getDepartment_name()%></td>
+											<td class="text-center"><%=item.getRole()%></td>
+											<td class="text-center"><%=item.getStatus()%></td>
+											<td class="text-center"><a
+												href="EditUser?username=<%=item.getUsername()%>"><i
 													class="fa fa-gear"></i></a> | <a
 												style="color: red; cursor: pointer;"><i
 													class="fa fa-trash btn-delete"
-													data-id="<%=list.getUser_id()%>"
-													data-username="<%=list.getUsername()%>"
-													data-code="<%=list.getUser_code()%>"></i></a> <%
- 	}
- %>
-											</td>
+													data-id="<%=item.getUser_id()%>"
+													data-username="<%=item.getUsername()%>"
+													data-code="<%=item.getUser_code()%>"></i></a></td>
 										</tr>
 										<%
-											}
 											}
 										%>
 									</tbody>
@@ -257,5 +245,5 @@
 			});
 		});
 	</script>
-	</ body>
+</body>
 </html>

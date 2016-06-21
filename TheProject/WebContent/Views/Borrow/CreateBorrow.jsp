@@ -30,7 +30,8 @@
 						<h1 class="page-header">สร้างเอกสารยืมวัสดุ</h1>
 					</div>
 					<form id="form-create">
-					<input type="hidden" name="user_id" id="user_id" value="<%=gobalUser.getUser_id()%>">
+						<input type="hidden" name="user_id" id="user_id"
+							value="<%=gobalUser.getUser_id()%>">
 						<div class="col-sm-12">
 							<div class="col-sm-4">
 								<div class="form-group">
@@ -76,7 +77,8 @@
 								<div class="form-group">
 									<div class="col-sm-6"
 										style="padding-left: 0; padding-right: 0;">
-										<button type="button" class="btn btn-success btn-block btn-create">สร้างเอกสาร</button>
+										<button type="button"
+											class="btn btn-success btn-block btn-create">สร้างเอกสาร</button>
 									</div>
 								</div>
 							</div>
@@ -184,9 +186,10 @@
 					}).show();
 				});
 				//btn select asset code to textbox search
-				$('.btn-select').on('click', function() {
+				$modal.find('.btn-select').on('click', function() {
 					var code = $(this).data('code');
 					alert(code);
+					$modal.modal('hide');
 				});
 				$modal.modal('show');
 			});
@@ -194,11 +197,10 @@
 			//remove item from table list
 			$("#myTable").on('click', '.remCF', function() {
 				$(this).parent().parent().remove();
-				countTable--;
 			});
 
 			//append item to table list
-			$('.btn-append').on('click', function() {
+/* 			$('.btn-append').on('click', function() {
 				var code = $('#search').val();
 				if (code != "" | code != null) {
 					$.ajax({
@@ -223,7 +225,7 @@
 				}
 				$('#search').val("");
 			});
-
+ */
 			$('#form-create').validate({
 				rules : {
 					document_no : {
@@ -270,27 +272,16 @@
 					}
 				}
 			});
-			
-			
+
 			//create borrow form
-			$('.btn-create').on('click',function(){
-				var asset_id = $('#myTable input[id=\"asset_id\"]').serialize();
-				if(asset_id != ''){
- 					var validateForm =	$('#form-create').valid();
-					if(validateForm != 0){
-						var formJson = $('#form-create input,textarea').serialize();
-						alert(formJson);
-						$.ajax({
-							url : "CreateBorrow",
-							type : "POST",
-							date : formJson,
-						}).done(function(){
-							window.location.replace("Borrow");
-						})
-					} 
-				}else{
-					alert('กรุณาเลือกวัสดุที่ต้องการยืม');
-				}
+			$('.btn-create').on('click', function() {
+				$.ajax({
+					url : "CreateBorrow",
+					type : "POST",
+					date : {document_no : "sss"},
+				}).done(function() {
+					window.location.replace("Borrow");
+				});
 			});
 		})
 	</script>
@@ -319,7 +310,7 @@
 						<td class="text-left">{{asset_name}}</td>
 						<td class="text-center"><a style="cursor: pointer;"
 							class="btn-select" data-code="{{asset_code}}"
-							data-name="{{asset_name}}" data-dismiss="modal">select</a></td>
+							data-name="{{asset_name}}">select</a></td>
 					</tr>
 					{{/.}}
 	</script>

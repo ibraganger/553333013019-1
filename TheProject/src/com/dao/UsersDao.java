@@ -41,6 +41,7 @@ public class UsersDao {
 				user.setFaculty_id(rs.getInt("faculty_id"));
 				user.setDepartment_id(rs.getInt("department_id"));
 				user.setLast_update(rs.getString("last_update"));
+				user.setStatus(rs.getString("status"));
 				list.add(user);
 			}
 
@@ -76,6 +77,7 @@ public class UsersDao {
 				user.setFaculty_id(rs.getInt("faculty_id"));
 				user.setDepartment_id(rs.getInt("department_id"));
 				user.setLast_update(rs.getString("last_update"));
+				user.setStatus(rs.getString("status"));
 			}
 
 		} catch (SQLException e) {
@@ -107,6 +109,7 @@ public class UsersDao {
 				user.setFaculty_id(rs.getInt("faculty_id"));
 				user.setDepartment_id(rs.getInt("department_id"));
 				user.setLast_update(rs.getString("last_update"));
+				user.setStatus(rs.getString("status"));
 			}
 			if (user.getUsername() != null) {
 				return user;
@@ -175,6 +178,7 @@ public class UsersDao {
 				user.setFaculty_id(rs.getInt("faculty_id"));
 				user.setDepartment_id(rs.getInt("department_id"));
 				user.setLast_update(rs.getString("last_update"));
+				user.setStatus(rs.getString("status"));
 			}
 			if (user.getUsername() != null) {
 				return user;
@@ -201,7 +205,8 @@ public class UsersDao {
 				user.getRole()+"',"+
 				user.getFaculty_id()+","+
 				user.getDepartment_id()+",'"+
-				user.getLast_update()+"')";
+				user.getLast_update()+"',"+
+				"'active')";
 		try {
 			Statement st = connection.createStatement();
 			st.executeQuery(sql);
@@ -292,6 +297,7 @@ public class UsersDao {
 				user.setFaculty_id(rs.getInt("faculty_id"));
 				user.setDepartment_id(rs.getInt("department_id"));
 				user.setLast_update(rs.getString("last_update"));
+				user.setStatus(rs.getString("status"));
 				list.add(user);
 			}
 			if (list != null) {
