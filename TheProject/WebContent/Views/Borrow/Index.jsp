@@ -6,6 +6,7 @@
 
 <%
 	List<BorrowDB> list = (ArrayList<BorrowDB>) request.getAttribute("list");
+	Users gobalUser = (Users) session.getAttribute("gobalUser");
 	int count = 1;
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -44,14 +45,12 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="input-group date" id="datePicker2">
-									<input class="form-control" name="return_date" id="return_date"
-										value="<%=request.getAttribute("return_date")%>"
-										placeholder="วันที่ส่งคืนวัสดุ"> <span
-										class="input-group-addon"> <span><i
-											class="fa fa-calendar"></i></span>
-									</span>
-								</div>
+								<select class="form-control" name="status">
+									<option value="">สถานะ...</option>
+									<option value="Waiting">Waiting</option>
+									<option value="Approved">Approved</option>
+									<option value="Returned">Returned</option>
+								</select>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-info">
@@ -84,10 +83,40 @@
 								<tr>
 									<td class="text-center"><%=count++%></td>
 									<td class="text-left"><%=item.getDocument_no()%></td>
-									<td class="text-center"><%=item.getDate() %></td>
-									<td class="text-center"><%=item.getReturn_date() %></td>
-									<td class="text-center"><%=item.getStatus() %></td>
-									<td class="text-center"></td>
+									<td class="text-center"><%=item.getDate()%></td>
+									<td class="text-center"><%=item.getReturn_date()%></td>
+									<td class="text-center"><%=item.getStatus()%></td>
+									<%
+										if (gobalUser.getRole().equals("admin")) {
+									%>
+									<td class="text-center"><a
+										style="cursor: pointer; color: blue;"><i
+											class="fa fa-gear"></i></a> | <a
+										style="cursor: pointer; color: green;"><i
+											class="fa fa-check-square-o"></i></a> | <a
+										style="cursor: pointer; color: red;"><i
+											class="fa fa-trash"></i></a></td>
+									<%
+										} else {
+												if (item.getStatus().equals("Waiting")) {
+									%>
+									<td class="text-center"><a
+										style="cursor: pointer; color: blue;"><i
+											class="fa fa-gear"></i></a> | <a
+										style="cursor: pointer; color: red;"><i
+											class="fa fa-trash"></i></a></td>
+									<%
+										} else {
+									%>
+									<td class="text-center"><a
+										style="cursor: pointer; color: gray;"><i
+											class="fa fa-gear"></i></a> | <a
+										style="cursor: pointer; color: gray;"><i
+											class="fa fa-trash"></i></a></td>
+									<%
+										}
+											}
+									%>
 								</tr>
 								<%
 									}

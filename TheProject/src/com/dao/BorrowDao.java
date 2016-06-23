@@ -100,17 +100,40 @@ public class BorrowDao {
 		}
 		return null;
 	}
-	
+
+	public List<BorrowDB> findUserID(int id) {
+
+		String sql = "select * from borrow where user_id = " + id;
+		List<BorrowDB> items = new ArrayList<>();
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				BorrowDB obj = new BorrowDB();
+				obj.setBor_id(rs.getInt("bor_id"));
+				obj.setDate(rs.getString("date"));
+				obj.setDocument_no(rs.getString("document_no"));
+				obj.setNote(rs.getString("note"));
+				obj.setReturn_date(rs.getString("return_date"));
+				obj.setStatus(rs.getString("status"));
+				obj.setUse_for(rs.getString("use_for"));
+				obj.setUser_id(rs.getInt("user_id"));
+				items.add(obj);
+			}
+			if (items != null) {
+				return items;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public void add(BorrowDB item) {
-		String sql = "call add_borrow("+
-					 "'"+item.getDocument_no()+"',"+
-					 "'"+item.getUse_for()+"',"+
-					 "'"+item.getDate()+"',"+
-					 "'"+item.getReturn_date()+"',"+
-					 "'"+item.getStatus()+"',"+
-					 "'"+item.getNote()+"',"+
-					 item.getUser_id()+
-					 ")";
+		String sql = "call add_borrow(" + "'" + item.getDocument_no() + "'," + "'" + item.getUse_for() + "'," + "'"
+				+ item.getDate() + "'," + "'" + item.getReturn_date() + "'," + "'" + item.getStatus() + "'," + "'"
+				+ item.getNote() + "'," + item.getUser_id() + ")";
 		try {
 			Statement st = con.createStatement();
 			st.executeQuery(sql);
@@ -118,7 +141,7 @@ public class BorrowDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

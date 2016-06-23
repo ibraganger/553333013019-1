@@ -33,21 +33,21 @@ public class Borrow extends HttpServlet {
 
 	private String search = "";
 	private String input_date = "";
-	private String return_date = "";
+	private String status = "";
 	private BorrowDao brDao = new BorrowDao();
-	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		HttpSession ss = request.getSession(false);
-		if (ss != null) {
+		HttpSession ss = request.getSession();
+		String ssID = ss.getId();
+		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser");
 			if (gobalUser != null) {
 
 				search = request.getParameter("search");
 				input_date = request.getParameter("input_date");
-				return_date = request.getParameter("return_date");
+				status = request.getParameter("status");
 
 				if (search == null) {
 					search = "";
@@ -55,21 +55,26 @@ public class Borrow extends HttpServlet {
 				if (input_date == null) {
 					input_date = "";
 				}
-				if (return_date == null) {
-					return_date = "";
+				if (status == null) {
+					status = "";
 				}
 
 				request.setAttribute("search", search);
 				request.setAttribute("input_date", input_date);
-				request.setAttribute("return_date", return_date);
-				request.setAttribute("list", brDao.getAll());
+				request.setAttribute("status", status);
+
+				if (gobalUser.getRole().equals("admin")) {
+					request.setAttribute("list", brDao.getAll());
+				} else {
+					request.setAttribute("list", brDao.findUserID(gobalUser.getUser_id()));
+				}
 				request.getRequestDispatcher("Views/Borrow/Index.jsp").forward(request, response);
 
 			} else {
-				response.sendRedirect("/");
+				response.sendRedirect(request.getContextPath() + "/Login");
 			}
 		} else {
-			response.sendRedirect("/");
+			response.sendRedirect(request.getContextPath() + "/Login");
 		}
 	}
 

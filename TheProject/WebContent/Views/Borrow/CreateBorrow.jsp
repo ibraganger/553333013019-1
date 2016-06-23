@@ -135,8 +135,7 @@
 						<span class="input-group-addon">Filter</span> <input id="filter"
 							type="text" class="form-control" placeholder="Type here...">
 					</div>
-					<div class="asset-list">
-					</div>
+					<div class="asset-list"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -172,14 +171,14 @@
 					}).show();
 				});
 				//btn select asset code to textbox search
-				
+
 				$modal.modal('show');
 			});
 
-			$('#btn-select').on('click', function() {				
+			$('#btn-select').on('click', function() {
 				alert('sss');
 			});
-			
+
 			//remove item from table list
 			$("#myTable").on('click', '.remCF', function() {
 				$(this).parent().parent().remove();
@@ -188,26 +187,35 @@
 			//append item to table list
 			$('.btn-append').on('click', function() {
 				var code = $('#search').val();
-				if (code != "" | code != null) {
-					$.ajax({
-						url : 'FindPerCode',
-						type : 'get',
-						data : {
-							code : code
-						}
-					}).done(function(data) {
-						if (data != 'null') {
-							var item = {
-								countList : countTable++,
-								id : data.asset_id,
-								code : data.asset_code,
-								name : data.asset_name
+				var arr = $('#myTable input').serializeArray();
+				var checkCode = true;
+				$.each(arr, function(i, val) {
+					if (val.value == code) {
+						checkCode = false;
+					}
+				})
+				if (checkCode != false) {
+					if (code != "" | code != null) {
+						$.ajax({
+							url : 'FindPerCode',
+							type : 'get',
+							data : {
+								code : code
 							}
-							var templete = $('#add-to-table').html();
-							var rendered = Mustache.render(templete, item);
-							$('#myTable tr:last').after(rendered);
-						}
-					});
+						}).done(function(data) {
+							if (data != 'null') {
+								var item = {
+									countList : countTable++,
+									id : data.asset_id,
+									code : data.asset_code,
+									name : data.asset_name
+								}
+								var templete = $('#add-to-table').html();
+								var rendered = Mustache.render(templete, item);
+								$('#myTable tr:last').after(rendered);
+							}
+						});
+					}
 				}
 				$('#search').val("");
 			});
@@ -275,7 +283,8 @@
 	</script>
 	<script type="text/html" id="add-to-table">
 	<tr>
-		<input type="hidden" name="asset_id" id="asset_id" value="{{id}}">{{id}}
+		<input type="hidden" name="asset_id" id="asset_id" value="{{id}}">
+		<input type="hidden" name="asset_code" id="asset_code" value="{{code}}">
 		<td class="text-left">{{code}}
 		</td>
 		<td class="text-left">{{name}}

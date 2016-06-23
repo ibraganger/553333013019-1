@@ -47,12 +47,11 @@ public class CreateBorrow extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		HttpSession ss = request.getSession(false);
+		HttpSession ss = request.getSession();
 		String ssID = ss.getId();
+		Users gobalUser = (Users) ss.getAttribute("gobalUser");
 		if (ssID != null) {
-			Users gobalUser = (Users) ss.getAttribute("gobalUser");
 			if (gobalUser != null) {
-
 				List<PerDetails> assetList = pdDao.searchStatus();
 				request.setAttribute("assetList", assetList);
 				request.getRequestDispatcher("Views/Borrow/CreateBorrow.jsp").forward(request, response);
