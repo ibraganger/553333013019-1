@@ -71,27 +71,9 @@ public class CreateBorrow extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+			
+		String input = request.getParameter("input");
 
-		request.setCharacterEncoding("utf-8");
-		String[] asset_id = request.getParameterValues("asset_id");
-		BorrowDB item = new BorrowDB();
-		item.setDate(request.getParameter("date"));
-		item.setDocument_no(request.getParameter("document_no"));
-		item.setNote(request.getParameter("note"));
-		item.setReturn_date(request.getParameter("return_date"));
-		item.setStatus("Waiting");
-		item.setUse_for(request.getParameter("use_for"));
-		item.setUser_id(Integer.parseInt(request.getParameter("user_id")));
-//		brDao.add(item);
-//		item.setBor_id(brDao.findDoc(item.getDocument_no()).getBor_id());
-//		for(String list : asset_id){
-//			BorrowDetails obj = new BorrowDetails();
-//			obj.setAsset_code("");
-//			obj.setAsset_id(Integer.parseInt(list));
-//			obj.setAsset_name("");
-//			obj.setBor_id(item.getBor_id());
-//			
-//		}
 	}
 
 }
