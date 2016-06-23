@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dao.BorrowDao;
 import com.model.Users;
 
 /**
@@ -33,6 +34,8 @@ public class Borrow extends HttpServlet {
 	private String search = "";
 	private String input_date = "";
 	private String return_date = "";
+	private BorrowDao brDao = new BorrowDao();
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -59,7 +62,7 @@ public class Borrow extends HttpServlet {
 				request.setAttribute("search", search);
 				request.setAttribute("input_date", input_date);
 				request.setAttribute("return_date", return_date);
-
+				request.setAttribute("list", brDao.getAll());
 				request.getRequestDispatcher("Views/Borrow/Index.jsp").forward(request, response);
 
 			} else {

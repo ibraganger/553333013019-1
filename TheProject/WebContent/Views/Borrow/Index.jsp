@@ -1,6 +1,13 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.model.BorrowDB"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
+<%
+	List<BorrowDB> list = (ArrayList<BorrowDB>) request.getAttribute("list");
+	int count = 1;
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -70,6 +77,22 @@
 									<th class="text-center">จัดการ</th>
 								</tr>
 							</thead>
+							<tbody>
+								<%
+									for (BorrowDB item : list) {
+								%>
+								<tr>
+									<td class="text-center"><%=count++%></td>
+									<td class="text-left"><%=item.getDocument_no()%></td>
+									<td class="text-center"><%=item.getDate() %></td>
+									<td class="text-center"><%=item.getReturn_date() %></td>
+									<td class="text-center"><%=item.getStatus() %></td>
+									<td class="text-center"></td>
+								</tr>
+								<%
+									}
+								%>
+							</tbody>
 						</table>
 					</div>
 				</div>

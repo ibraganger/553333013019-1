@@ -38,6 +38,8 @@ public class BorrowDetailsDao {
 		return null;
 	}
 	
+
+	
 	public void add(BorrowDetails item) {
 		String sql = "call add_borrow_details("
 					 +item.getBor_id()+","+
