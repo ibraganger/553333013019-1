@@ -90,6 +90,7 @@
 										if (gobalUser.getRole().equals("admin")) {
 									%>
 									<td class="text-center"><a
+										href="EditBorrow?bor_id=<%=item.getBor_id()%>"
 										style="cursor: pointer; color: blue;"><i
 											class="fa fa-gear"></i></a> | <a
 										style="cursor: pointer; color: green;"><i
@@ -101,6 +102,7 @@
 												if (item.getStatus().equals("Waiting")) {
 									%>
 									<td class="text-center"><a
+										href="EditBorrow?bor_id=<%=item.getBor_id()%>"
 										style="cursor: pointer; color: blue;"><i
 											class="fa fa-gear"></i></a> | <a
 										style="cursor: pointer; color: red;"><i

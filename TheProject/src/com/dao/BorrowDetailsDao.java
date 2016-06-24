@@ -37,15 +37,35 @@ public class BorrowDetailsDao {
 		}
 		return null;
 	}
-	
 
-	
+	public List<BorrowDetails> findBorID(int id) {
+		String sql = "select * from borrow_details where bor_id = " + id;
+		try {
+			List<BorrowDetails> items = new ArrayList<BorrowDetails>();
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				BorrowDetails item = new BorrowDetails();
+				item.setAsset_id(rs.getInt("asset_id"));
+				item.setAsset_code(rs.getString("asset_code"));
+				item.setAsset_name(rs.getString("asset_name"));
+				item.setBor_id(rs.getInt("bor_id"));
+				item.setId(rs.getInt("id"));
+				items.add(item);
+			}
+			if (items != null) {
+				return items;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public void add(BorrowDetails item) {
-		String sql = "call add_borrow_details("
-					 +item.getBor_id()+","+
-					 "'"+item.getAsset_code()+"',"+
-					 "'"+item.getAsset_name()+"',"+
-					 item.getAsset_id()+")";
+		String sql = "call add_borrow_details(" + item.getBor_id() + "," + "'" + item.getAsset_code() + "'," + "'"
+				+ item.getAsset_name() + "'," + item.getAsset_id() + ")";
 		try {
 			Statement st = con.createStatement();
 			st.executeQuery(sql);
