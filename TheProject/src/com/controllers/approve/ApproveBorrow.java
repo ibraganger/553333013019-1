@@ -6,21 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.model.Users;
 
 /**
- * Servlet implementation class Approve
+ * Servlet implementation class ApproveBorrow
  */
-@WebServlet("/Approve")
-public class Approve extends HttpServlet {
+@WebServlet("/ApproveBorrow")
+public class ApproveBorrow extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Approve() {
+    public ApproveBorrow() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,18 +26,8 @@ public class Approve extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession ss = request.getSession(false);
-		String ssID = ss.getId();
-		if (ssID != null) {
-			Users gobalUser = (Users) ss.getAttribute("gobalUser");
-			if (gobalUser != null) {
-				request.getRequestDispatcher("Views/Approve/Index.jsp").forward(request, response);
-			} else {
-				response.sendRedirect(request.getContextPath() + "/Login");
-			}
-		} else {
-			response.sendRedirect(request.getContextPath() + "/Login");
-		}
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
