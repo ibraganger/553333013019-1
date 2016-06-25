@@ -103,7 +103,7 @@
 									<td></td>
 									<td></td>
 									<%
-										if (item.getStatus().equals("N")) {
+										if (item.getStatus().equals("Normal")) {
 									%>
 									<td class="text-center">/</td>
 									<td class="text-center"></td>

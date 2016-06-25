@@ -147,7 +147,7 @@ public class BorrowDao {
 				item.setUse_for(rs.getString("use_for"));
 				item.setUser_id(rs.getInt("user_id"));
 			}
-			if(item.getDocument_no() != null){
+			if (item.getDocument_no() != null) {
 				return item;
 			}
 		} catch (SQLException e) {
@@ -171,6 +171,31 @@ public class BorrowDao {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void update(BorrowDB item) {
+		String sql = "call edit_borrow(" + item.getBor_id() + ",'" + item.getDocument_no() + "','" + item.getUse_for()
+				+ "','" + item.getDate() + "','" + item.getReturn_date() + "','" + item.getStatus() + "','"
+				+ item.getNote() + "'," + item.getUser_id() + ")";
+		try {
+			Statement st = con.createStatement();
+			st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void delete(int id) {
+		String sql = "call delete_borrow(" + id + ")";
+		try {
+			Statement st = con.createStatement();
+			st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

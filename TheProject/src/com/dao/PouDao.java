@@ -82,4 +82,15 @@ public class PouDao {
 		}
 
 	}
+
+	public void update(PerOfUser item) {
+		String sql = "call edit_perOfUser(" + item.getId() + "," + item.getAsset_id() + "," + item.getUser_id() + ")";
+		try {
+			Statement st = connect.createStatement();
+			st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

@@ -39,10 +39,10 @@
 							type="hidden" name="bor_id" id="bor_id"
 							value="<%=borItem.getBor_id()%>">
 						<div class="col-sm-12 text-right">
-							<button type="button" class="btn btn-success btn-edit">สร้างเอกสาร</button>
+							<button type="button" class="btn btn-success btn-edit">บันทึก</button>
 						</div>
 						<input type="hidden" name="user_id" id="user_id"
-							value="<%=gobalUser.getUser_id()%>">
+							value="<%=borItem.getUser_id()%>">
 						<div class="col-sm-12">
 							<div class="col-sm-4">
 								<div class="form-group">
@@ -100,6 +100,41 @@
 										</div>
 									</div>
 								</div>
+								<%
+									if (gobalUser.getRole().equals("admin")) {
+								%>
+								<div class="form-group">
+									<label>สถานะ</label>
+									<div class="form-group">
+										<select class="form-control" name="status" id="status">
+											<%
+												if (borItem.getStatus().equals("Waiting")) {
+											%>
+											<option value="Waiting" selected="selected">Waiting</option>
+											<option value="Approved">Approved</option>
+											<option value="Returned">Returned</option>
+											<%
+												} else if (borItem.getStatus().equals("Approved")) {
+											%>
+											<option value="Waiting">Waiting</option>
+											<option value="Approved" selected="selected">Approved</option>
+											<option value="Returned">Returned</option>
+											<%
+												} else {
+											%>
+											<option value="Waiting">Waiting</option>
+											<option value="Approved">Approved</option>
+											<option value="Returned" selected="selected">Returned</option>
+											<%
+												}
+											%>
+
+										</select>
+									</div>
+								</div>
+								<%
+									}
+								%>
 							</div>
 							<div class="col-sm-8">
 								<div class="col-sm-12">

@@ -1,6 +1,7 @@
 package com.controllers.borrow;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,8 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import com.dao.BorrowDao;
 import com.dao.BorrowDetailsDao;
+import com.dao.PerDetailsDao;
+import com.dao.PouDao;
+import com.dao.UsersDao;
 import com.model.BorrowDB;
 import com.model.BorrowDetails;
+import com.model.PerDetails;
+import com.model.PerOfUser;
 import com.model.Users;
 
 /**
@@ -29,6 +35,9 @@ public class EditBorrow extends HttpServlet {
 
 	private BorrowDao brDao = new BorrowDao();
 	private BorrowDetailsDao brdDao = new BorrowDetailsDao();
+	private PerDetailsDao pdDao = new PerDetailsDao();
+	private UsersDao uDao = new UsersDao();
+	private PouDao pouDao = new PouDao();
 
 	public EditBorrow() {
 		super();
@@ -68,18 +77,57 @@ public class EditBorrow extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+
 		String[] asset_id = request.getParameterValues("asset_id");
 		BorrowDB item = new BorrowDB();
+		item.setBor_id(Integer.parseInt(request.getParameter("bor_id")));
 		item.setDate(request.getParameter("date"));
 		item.setDocument_no(request.getParameter("document_no"));
 		item.setNote(request.getParameter("note"));
 		item.setReturn_date(request.getParameter("return_date"));
-		item.setStatus("Waiting");
+		item.setStatus(request.getParameter("status"));
 		item.setUse_for(request.getParameter("use_for"));
 		item.setUser_id(Integer.parseInt(request.getParameter("user_id")));
-		
+		brDao.update(item);
+
+		Users adminUser = (Users) uDao.findUsername("admin");
+		List<BorrowDetails> list = new ArrayList<>();
+		list = brdDao.findBorID(item.getBor_id());
+
+		for (BorrowDetails obj : list) {
+			brdDao.delete(obj.getId());
+		}
+		for (String obj : asset_id) {
+			PerDetails per = new PerDetails();
+			BorrowDetails bor = new BorrowDetails();
+			PerOfUser pou = (PerOfUser) pouDao.findAsset_id(Integer.parseInt(obj));
+
+			per = pdDao.findAssetID(Integer.parseInt(obj));
+			bor.setAsset_code(per.getAsset_code());
+			bor.setAsset_id(per.getAsset_id());
+			bor.setAsset_name(per.getAsset_name());
+			bor.setBor_id(item.getBor_id());
+
+			if (item.getStatus().equals("Approved")) {
+				per.setUse_status("Using");
+				pdDao.update(per);
+				pou.setAsset_id(bor.getAsset_id());
+				pou.setUser_id(item.getUser_id());
+				pouDao.update(pou);
+
+			} else {
+				per.setUse_status("Normal");
+				pdDao.update(per);
+				pou.setAsset_id(bor.getAsset_id());
+				pou.setUser_id(adminUser.getUser_id());
+				pouDao.update(pou);
+			}
+			brdDao.add(bor);
+		}
+		response.sendRedirect(request.getContextPath() + "/Borrow");
 	}
 
 }

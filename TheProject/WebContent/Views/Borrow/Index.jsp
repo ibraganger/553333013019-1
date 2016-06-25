@@ -92,9 +92,9 @@
 									<td class="text-center"><a
 										href="EditBorrow?bor_id=<%=item.getBor_id()%>"
 										style="cursor: pointer; color: blue;"><i
-											class="fa fa-gear"></i></a> | <a
-										style="cursor: pointer; color: green;"><i
-											class="fa fa-check-square-o"></i></a> | <a
+											class="fa fa-gear"></i></a> | <a class="btn-delete"
+										data-id="<%=item.getBor_id()%>"
+										data-doc_no="<%=item.getDocument_no()%>"
 										style="cursor: pointer; color: red;"><i
 											class="fa fa-trash"></i></a></td>
 									<%
@@ -104,7 +104,9 @@
 									<td class="text-center"><a
 										href="EditBorrow?bor_id=<%=item.getBor_id()%>"
 										style="cursor: pointer; color: blue;"><i
-											class="fa fa-gear"></i></a> | <a
+											class="fa fa-gear"></i></a> | <a class="btn-delete"
+										data-id="<%=item.getBor_id()%>"
+										data-doc_no="<%=item.getDocument_no()%>"
 										style="cursor: pointer; color: red;"><i
 											class="fa fa-trash"></i></a></td>
 									<%
@@ -143,8 +145,55 @@
 				responsive : true,
 				'searching' : false
 			});
+
+			$('.btn-delete').on('click', function() {
+				$modal = $('.modal-delete');
+				var bor_id = $(this).data('id');
+				var doc_no = $(this).data('doc_no');
+				$modal.find('#text-doc_no').text('เลขที่เอกสาร : ' + doc_no);
+				$modal.modal('show');
+				$modal.find('.btn-confirm').on('click', function() {
+					$.ajax({
+						url : 'DeleteBorrow',
+						type : 'get',
+						data : {
+							bor_id : bor_id
+						}
+					}).done(function() {
+						window.location.reload();
+					})
+				})
+			})
 		})
 	</script>
+
+	<div class="modal fade modal-delete" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">ลบเอกสาร</h4>
+				</div>
+				<div class="modal-body">
+					<p>คุณต้องการดำเนินการลบเอกสารดังต่อไปนี้</p>
+					<p id="text-doc_no"></p>
+					<p>เอกสารจะถูกลบออกจากฐานข้อมูลของระบบ หาต้องการดำเนินการลบ
+						กรุณากด "Comfirm"</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning btn-confirm"
+						data-dismiss="modal">Confirm</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 
 </body>
 </html>

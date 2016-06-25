@@ -75,4 +75,31 @@ public class BorrowDetailsDao {
 		}
 	}
 
+	public void update(BorrowDetails item) {
+		String sql = "call edit_borrow_details(" + item.getId() + "," + item.getBor_id() + ",'" + item.getAsset_code()
+				+ "','" + item.getAsset_name() + "'," + item.getAsset_id() + ")";
+		try {
+			Statement st = con.createStatement();
+			st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void delete(int id) {
+		String sql = "call delete_borrow_details(" + id + ")";
+		try {
+			Statement st = con.createStatement();
+			st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+
+
 }
