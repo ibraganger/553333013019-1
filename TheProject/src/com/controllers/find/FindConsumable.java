@@ -1,35 +1,23 @@
-package com.controllers.expose;
+package com.controllers.find;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.dao.ConsumableDao;
-import com.model.Consumable;
-import com.model.Users;
 
 /**
- * Servlet implementation class CreateExpost
+ * Servlet implementation class FindConsumable
  */
-@WebServlet("/CreateExpose")
-public class CreateExpose extends HttpServlet {
+@WebServlet("/FindConsumable")
+public class FindConsumable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	
-	private ConsumableDao conDao = new ConsumableDao();
-	
-	
-	public CreateExpose() {
+	public FindConsumable() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -42,21 +30,10 @@ public class CreateExpose extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		HttpSession ss = request.getSession();
-		String ssID = ss.getId();
-		if (ssID != null) {
-			Users gobalUser = (Users) ss.getAttribute("gobalUser");
-			if (gobalUser != null) {
-				List<Consumable> listCon = (ArrayList<Consumable>)conDao.getAll();
-				request.setAttribute("listCon", listCon);
-				request.getRequestDispatcher("Views/Expose/CreateExpose.jsp").forward(request, response);
 
-			} else {
-				response.sendRedirect(request.getContextPath() + "/Login");
-			}
-		} else {
-			response.sendRedirect(request.getContextPath() + "/Login");
-		}
+		int con_id = Integer.parseInt(request.getParameter("con_id"));
+		String con_name = request.getParameter("con_name");
+		int amount = Integer.parseInt(request.getParameter("amount"));
 	}
 
 	/**

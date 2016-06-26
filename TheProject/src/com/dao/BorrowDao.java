@@ -198,4 +198,33 @@ public class BorrowDao {
 		}
 	}
 
+	public List<BorrowDB> search(String document_no, String date, String status,String username) {
+		String sql = "call search_borrow('%" + document_no + "%','%" + date + "%','%" + status + "%','%"+username+"%')";
+		
+		List<BorrowDB> items = new ArrayList<>();
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				BorrowDB obj = new BorrowDB();
+				obj.setBor_id(rs.getInt("bor_id"));
+				obj.setDate(rs.getString("date"));
+				obj.setDocument_no(rs.getString("document_no"));
+				obj.setNote(rs.getString("note"));
+				obj.setReturn_date(rs.getString("return_date"));
+				obj.setStatus(rs.getString("status"));
+				obj.setUse_for(rs.getString("use_for"));
+				obj.setUser_id(rs.getInt("user_id"));
+				items.add(obj);
+			}
+			if (items != null) {
+				return items;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

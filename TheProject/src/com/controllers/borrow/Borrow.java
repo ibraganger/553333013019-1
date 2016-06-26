@@ -64,9 +64,9 @@ public class Borrow extends HttpServlet {
 				request.setAttribute("status", status);
 
 				if (gobalUser.getRole().equals("admin")) {
-					request.setAttribute("list", brDao.getAll());
+					request.setAttribute("list", brDao.search(search, input_date, status,""));
 				} else {
-					request.setAttribute("list", brDao.findUserID(gobalUser.getUser_id()));
+					request.setAttribute("list", brDao.search(search, input_date, status,gobalUser.getUsername()));
 				}
 				request.getRequestDispatcher("Views/Borrow/Index.jsp").forward(request, response);
 

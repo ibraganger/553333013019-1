@@ -1,3 +1,4 @@
+<%@page import="com.dao.UsersDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.model.BorrowDB"%>
 <%@page import="java.util.List"%>
@@ -180,7 +181,7 @@
 				<div class="modal-body">
 					<p>คุณต้องการดำเนินการลบเอกสารดังต่อไปนี้</p>
 					<p id="text-doc_no"></p>
-					<p>เอกสารจะถูกลบออกจากฐานข้อมูลของระบบ หาต้องการดำเนินการลบ
+					<p>เอกสารจะถูกลบออกจากฐานข้อมูลของระบบ หากต้องการดำเนินการต่อ
 						กรุณากด "Comfirm"</p>
 				</div>
 				<div class="modal-footer">
