@@ -65,10 +65,17 @@
 								</div>
 								<div class="col-sm-12">
 									<div class="form-inline">
-										<input type="hidden" name="con_id" id="con_id" value="">
 										<div class="form-group">
-											<input type="text" class="form-control" id="con_name"
-												name="con_name" placeholder="ชื่อวัสดุ">
+											<select name="con_id" id="con_id" class="form-control">
+												<option value="">---------- เลือกวัสดุ ----------</option>
+												<%
+													for (Consumable item : listCon) {
+												%>
+												<option value="<%=item.getCon_id()%>"><%=item.getCon_name()%></option>
+												<%
+													}
+												%>
+											</select>
 										</div>
 										<div class="form-group">
 											<input type="number" style="width: 80px" class="form-control"
@@ -102,90 +109,7 @@
 			</div>
 		</div>
 
-		<script type="text/javascript">
-			//date picker
-			$('#datePicker1').datepicker()
 
-			//find asset list on modal
-			$('.btn-find').on('click', function() {
-				$modal = $('.modal-find');
-				//fillter asset
-				$modal.find('#filter').keyup(function() {
-					var rex = new RegExp($(this).val(), 'i');
-					$('.searchable tr').hide();
-					$('.searchable tr').filter(function() {
-						return rex.test($(this).text());
-					}).show();
-				});
-				//select asset to textbox
-				$modal.find('.btn-select').on('click', function() {
-					var id = $(this).data('id');
-					var name = $(this).data('name');
-					$('#con_id').val(id);
-					$('#con_name').val(name);
-					$modal.modal('hide');
-				});
-				$modal.modal('show');
-			})
-
-			//validate create form
-			$('#form-create').validate({
-				rules : {
-					document_no : {
-						required : true
-					},
-					date : {
-						required : true
-					}
-				},
-				messages : {
-					document_no : {
-						required : 'ระบุเลขที่เอกสาร'
-					},
-					date : {
-						required : 'ระบุวันที่ต้องการใช้งาน'
-					}
-				}
-			});
-
-			//append asset to table list
-			$('.btn-append').on('click', function() {
-				var id = $('#con_id').val();
-				var name = $('#con_name').val();
-				var amount = $('#amount').val();
-				if (amount != "" & name != "") {
-
-					$.ajax({
-						url : 'FindConsumable',
-						type : 'get',
-						data : {
-							con_id : id,
-							con_name : name,
-							amount : amount
-						}
-					}).done(function(data) {
-
-					}).error(function() {
-						alert('error')
-					})
-
-					$('#con_id').val("");
-					$('#con_name').val("");
-					$('#amount').val("");
-				} else {
-					$('#amount').popover('show');
-					setTimeout(function() {
-						$('#amount').popover('hide');
-					}, 1500);
-				}
-
-			});
-
-			//create form
-			$('.btn-create').on('click', function() {
-				$('#form-create').valid();
-			})
-		</script>
 
 		<div class="modal fade modal-find" tabindex="-1" role="dialog">
 			<div class="modal-dialog">
@@ -213,7 +137,6 @@
 										<th class="text-center">รหัสวัสดุ</th>
 										<th class="text-center">ชื่อวัสดุ</th>
 										<th class="text-center">จำนวน</th>
-										<th class="text-center">จัดการ</th>
 									</thead>
 									<tbody class="searchable">
 										<%
@@ -224,9 +147,6 @@
 											<td class="text-left"><%=item.getCon_code()%></td>
 											<td class="text-left"><%=item.getCon_name()%></td>
 											<td class="text-center"><%=item.getAmount_tt()%></td>
-											<td class="text-center"><a class="btn-select"
-												style="cursor: pointer;" data-id="<%=item.getCon_id()%>"
-												data-name="<%=item.getCon_name()%>">select</a></td>
 										</tr>
 										<%
 											}
@@ -245,5 +165,108 @@
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
+
+
+		<script type="text/javascript">
+			//date picker
+			$('#datePicker1').datepicker()
+
+			//find asset list on modal
+			$('.btn-find').on('click', function() {
+				$modal = $('.modal-find');
+				//fillter asset
+				$modal.find('#filter').keyup(function() {
+					var rex = new RegExp($(this).val(), 'i');
+					$('.searchable tr').hide();
+					$('.searchable tr').filter(function() {
+						return rex.test($(this).text());
+					}).show();
+				});
+				$modal.modal('show');
+			})
+
+			//validate create form
+			$('#form-create').validate({
+				rules : {
+					document_no : {
+						required : true
+					},
+					date : {
+						required : true
+					}
+				},
+				messages : {
+					document_no : {
+						required : 'ระบุเลขที่เอกสาร'
+					},
+					date : {
+						required : 'ระบุวันที่ต้องการใช้งาน'
+					}
+				}
+			});
+
+			//append asset to table list
+			$('.btn-append').on('click', function() {
+				var id = $('#con_id').val();
+				var amount = $('#amount').val();
+				if (amount != "" & id != "") {
+					$.ajax({
+						url : 'FindConsumable',
+						type : 'get',
+						data : {
+							con_id : id
+						}
+					}).done(function(result) {
+						result = JSON.parse(result);
+						if (amount <= 0) {
+							alert('ระบุจำนวนวัสดุอย่างน้อย 1  ชิ้น');
+						} else if (result.amount_tt < amount) {
+							alert('จำนวนวัสดุมีไม่พอ');
+						} else {
+							var template = $('#table-template').html();
+							var data = {
+								id : result.con_id,
+								code : result.con_code,
+								name : result.con_name,
+								amount : amount
+							};
+							var rendered = Mustache.render(template, data);
+							$('#myTable tr:last').after(rendered);
+							$('#con_id').val("");
+							$('#amount').val("");
+						}
+					})
+				} else {
+					$('#amount').popover('show');
+					setTimeout(function() {
+						$('#amount').popover('hide');
+					}, 1500);
+				}
+			});
+
+			//remove item from table list
+			$("#myTable").on('click', '.remCF', function() {
+				$(this).parent().parent().remove();
+			});
+
+			//create form
+			$('.btn-create').on('click', function() {
+				$('#form-create').valid();
+			})
+		</script>
+
+		<script type="text/html" id="table-template">
+				<tr>
+					<input type="hidden" name="id_con" id="id_con" value="{{id}}">
+					<td class="text-center">{{code}}</td>
+					<td class="text-center">{{name}}</td>
+					<td class="text-center">{{amount}}</td>
+					<td class="text-center">
+						<a style="cursor: pointer;" href="javascript:void(0);" class="remCF">
+							<i class="fa fa-trash-o fa-fw"></i>ลบ
+						</a>
+					</td>
+			 	</tr>
+		</script>
 </body>
 </html>

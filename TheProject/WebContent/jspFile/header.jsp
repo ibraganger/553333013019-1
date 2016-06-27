@@ -185,8 +185,8 @@
 				<i class="fa fa-caret-down"></i>
 		</a>
 			<ul class="dropdown-menu dropdown-user">
-				<li><a href="EditUser?username=<%=user.getUsername()%>"><i class="fa fa-user fa-fw"></i> User
-						Profile</a></li>
+				<li><a href="EditUser?username=<%=user.getUsername()%>"><i
+						class="fa fa-user fa-fw"></i> User Profile</a></li>
 				<li class="divider"></li>
 				<li><a href="<%=request.getContextPath() + "/Logout"%>"><i
 						class="fa fa-sign-out fa-fw"></i> Logout</a></li>
@@ -207,8 +207,6 @@
 						class="fa fa-edit fa-fw"></i> เบิกครุภัณฑ์</a> <!-- /.nav-second-level --></li>
 				<li><a href="<%=request.getContextPath()%>/Repair"><i
 						class="fa fa-wrench fa-fw"></i>ซ่อมบำรุง</a> <!-- /.nav-second-level --></li>
-				<li><a href="<%=request.getContextPath() + "/Report"%>"><i
-						class="fa fa-print fa-fw"></i> ปริ๊นรายงาน</a> <!-- /.nav-second-level --></li>
 				<%
 					if (user.getRole().equals("admin")) {
 				%>
