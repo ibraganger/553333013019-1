@@ -46,7 +46,9 @@ public class EditUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession ss = request.getSession(false);
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		HttpSession ss = request.getSession();
 		String ssID = ss.getId();
 		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser"), userEdit = new Users();
@@ -82,6 +84,7 @@ public class EditUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 
 		Users user = new Users();
 		Users gobalUser = (Users) request.getSession().getAttribute("gobalUser");

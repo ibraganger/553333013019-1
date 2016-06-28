@@ -34,6 +34,7 @@ public class DuplicateAssetCode extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String asset_code = request.getParameter("asset_code");
 		String check_a_code = request.getParameter("check_a_code");

@@ -38,7 +38,8 @@ public class DeletePer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		int per_id = Integer.parseInt(request.getParameter("per_id"));
 		List<PerDetails> pdList = pdDao.findPer_id(per_id);
 		if (pdList != null) {

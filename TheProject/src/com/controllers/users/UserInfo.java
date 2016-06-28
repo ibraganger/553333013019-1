@@ -50,11 +50,10 @@ public class UserInfo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 
-		HttpSession ss = request.getSession(false);
+		HttpSession ss = request.getSession();
 		String ssID = ss.getId();
 		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser");

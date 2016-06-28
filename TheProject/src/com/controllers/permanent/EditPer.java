@@ -45,6 +45,8 @@ public class EditPer extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		int per_id = Integer.parseInt(request.getParameter("per_id"));
 		Permanent per = new Permanent();
 		HttpSession ss = request.getSession();
@@ -77,6 +79,7 @@ public class EditPer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		Permanent item = new Permanent();
 		item.setAmount(Integer.parseInt(request.getParameter("amount")));
 		item.setInput_date(request.getParameter("input_date"));

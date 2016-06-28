@@ -38,7 +38,8 @@ public class DuplicateUsername extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setCharacterEncoding("UTF-8"); // You want world domination,
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8"); // You want world domination,
 		String username = request.getParameter("username");
 		String checkUsername = request.getParameter("checkUsername"); // huh?
 		PrintWriter out = response.getWriter();

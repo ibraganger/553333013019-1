@@ -46,6 +46,7 @@ public class DuplicatePerName extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String per_name = request.getParameter("per_name");
 		String check_per_name = request.getParameter("check_per_name");

@@ -32,7 +32,9 @@ public class LoginFail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession ss = request.getSession(false);
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		HttpSession ss = request.getSession();
 		String ssID = ss.getId();
 		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser");

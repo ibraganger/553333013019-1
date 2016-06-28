@@ -43,6 +43,7 @@ public class ConsumHis extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		HttpSession ss = request.getSession();
 		String ssID = ss.getId();
 		if (ssID != null) {

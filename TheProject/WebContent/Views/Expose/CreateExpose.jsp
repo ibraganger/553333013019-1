@@ -189,7 +189,16 @@
 			$('#form-create').validate({
 				rules : {
 					document_no : {
-						required : true
+						required : true,
+						remote : {
+							url : 'DuplicateDocExpose',
+							type : 'get',
+							date : {
+								document_no : function() {
+									return $('#document_no').val();
+								}
+							}
+						}
 					},
 					date : {
 						required : true

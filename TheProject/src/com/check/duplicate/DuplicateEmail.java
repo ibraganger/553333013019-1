@@ -38,7 +38,9 @@ public class DuplicateEmail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setCharacterEncoding("UTF-8"); // You want world domination,
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8"); // You want world domination,
+		
 		String email = request.getParameter("email");
 		String checkEmail = request.getParameter("checkEmail");// huh?
 		PrintWriter out = response.getWriter();

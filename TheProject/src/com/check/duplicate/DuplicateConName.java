@@ -41,7 +41,8 @@ public class DuplicateConName extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		String con_name = request.getParameter("con_name");
 		String check_name = request.getParameter("check_name");
 		PrintWriter out = response.getWriter();

@@ -33,8 +33,11 @@ public class DuplicateDocBorrow extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BorrowDao borDao = new BorrowDao();
+
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		BorrowDao borDao = new BorrowDao();
+
 		String document_no = request.getParameter("document_no");
 		String check_doc = request.getParameter("check_doc");
 		PrintWriter out = response.getWriter();

@@ -42,6 +42,8 @@ public class CreateCon extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		HttpSession ss = request.getSession(false);
 		String ssID = ss.getId();
 		if (ssID != null) {
@@ -70,6 +72,7 @@ public class CreateCon extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		ConsumDetails consum = new ConsumDetails();
 		consum.setAmount(Integer.parseInt(request.getParameter("amount")));
 		consum.setCon_id(Integer.parseInt(request.getParameter("con_id")));

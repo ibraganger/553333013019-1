@@ -45,6 +45,7 @@ public class EditPerDetails extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		PerDetails item = new PerDetails();
 		item.setAsset_id(Integer.parseInt(request.getParameter("id")));
 		item.setAsset_code(request.getParameter("a_code"));

@@ -46,7 +46,8 @@ public class DuplicateConsumable extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		String con_code = request.getParameter("con_code");
 		String check_code = request.getParameter("check_code");
 		PrintWriter out = response.getWriter();

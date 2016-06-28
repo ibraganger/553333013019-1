@@ -37,7 +37,9 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getSession(false); 																//create session.
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		request.getSession(); 																//create session.
 		HttpSession ss = request.getSession();													//get session data.	
 		String ssID = ss.getId(); 																//get session id.
 		if (ssID != null) { 																	//check empty ssID if is not empty go to next process. 
@@ -59,6 +61,8 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		String username = request.getParameter("username"); 									//call parameter username from login page
 		String password = request.getParameter("password"); 									//call parameter password from login page
 		Users user = new Users();

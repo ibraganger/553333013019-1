@@ -42,6 +42,8 @@ public class PermanentIndex extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		List<Permanent> list = new ArrayList<Permanent>();
 		HttpSession ss = request.getSession();
 		Users gobalUser = (Users) ss.getAttribute("gobalUser");

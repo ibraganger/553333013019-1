@@ -39,6 +39,7 @@ public class AddConGroup extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		Consumable consum = new Consumable();
 		consum.setCon_code(request.getParameter("con_code"));
 		consum.setCon_name(request.getParameter("con_name"));

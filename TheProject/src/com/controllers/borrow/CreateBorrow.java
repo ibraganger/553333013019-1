@@ -46,7 +46,8 @@ public class CreateBorrow extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		HttpSession ss = request.getSession();
 		String ssID = ss.getId();
 		Users gobalUser = (Users) ss.getAttribute("gobalUser");
@@ -72,6 +73,7 @@ public class CreateBorrow extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		String[] asset_id = request.getParameterValues("asset_id");
 		BorrowDB item = new BorrowDB();
 		item.setDate(request.getParameter("date"));

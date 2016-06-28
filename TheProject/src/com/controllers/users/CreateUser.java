@@ -42,7 +42,9 @@ public class CreateUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession ss = request.getSession(false);
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		HttpSession ss = request.getSession();
 		String ssID = ss.getId();
 		if (ssID != null) {
 			Users user = (Users) ss.getAttribute("gobalUser");
@@ -68,6 +70,7 @@ public class CreateUser extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 
 		Users user = new Users();
 		user.setAddress(request.getParameter("address"));

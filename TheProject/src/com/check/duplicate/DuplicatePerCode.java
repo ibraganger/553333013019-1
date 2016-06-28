@@ -40,6 +40,7 @@ public class DuplicatePerCode extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String per_code = request.getParameter("per_code");
 		String check_per_code = request.getParameter("check_per_code");

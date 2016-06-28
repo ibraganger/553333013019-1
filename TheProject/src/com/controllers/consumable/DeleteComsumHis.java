@@ -38,6 +38,7 @@ public class DeleteComsumHis extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		int id = Integer.parseInt(request.getParameter("id"));
 		ConsumDetails cd = cdDao.find_id(id);
 		if (cd != null) {

@@ -1,4 +1,4 @@
-package com.controllers.permanent;
+package com.check.duplicate;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,24 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.PerDetailsDao;
-import com.dao.PouDao;
-import com.model.PerOfUser;
+import com.dao.ExposeDao;
 
 /**
- * Servlet implementation class RemovePer
+ * Servlet implementation class DuplicateDocExpose
  */
-@WebServlet("/RemovePer")
-public class RemovePer extends HttpServlet {
+@WebServlet("/DuplicateDocExpose")
+public class DuplicateDocExpose extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	private PerDetailsDao pdDao = new PerDetailsDao();
-	private PouDao pouDao = new PouDao();
-
-	public RemovePer() {
+	
+	private ExposeDao exDao = new ExposeDao();
+	
+	public DuplicateDocExpose() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,14 +33,11 @@ public class RemovePer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		int asset_id = Integer.parseInt(request.getParameter("asset_id"));
-		PerOfUser pou = pouDao.findAsset_id(asset_id);
-		if (pou != null) {
-			pouDao.delete(pou.getId());
-		}
-		pdDao.delete(asset_id);
+		String document_no = request.getParameter("document_no");
+		String check_doc = request.getParameter("check_doc");
 	}
 
 	/**

@@ -37,7 +37,8 @@ public class Repair extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		HttpSession ss = request.getSession(false);
+		response.setCharacterEncoding("utf-8");
+		HttpSession ss = request.getSession();
 		String ssID = ss.getId();
 		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser");

@@ -36,6 +36,7 @@ public class Expose extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		HttpSession ss = request.getSession(false);
 		String ssID = ss.getId();
 		if (ssID != null) {

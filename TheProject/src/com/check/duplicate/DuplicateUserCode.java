@@ -36,7 +36,8 @@ public class DuplicateUserCode extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8"); // You want world domination,
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8"); // You want world domination,
 		String user_code = request.getParameter("user_code");
 		String checkUser_code = request.getParameter("checkUser_code");// huh?
 		PrintWriter out = response.getWriter();
