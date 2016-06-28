@@ -133,8 +133,11 @@
 									</div>
 								</div>
 								<%
-									}
+									}else{
 								%>
+								<input type="hidden" name="status" id="status"
+									value="<%=borItem.getStatus()%>">
+								<%} %>
 							</div>
 							<div class="col-sm-8">
 								<div class="col-sm-12">

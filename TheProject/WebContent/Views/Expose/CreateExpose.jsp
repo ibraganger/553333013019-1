@@ -27,7 +27,9 @@
 					<div class="col-lg-12">
 						<h1 class="page-header">สร้างเอกสารการเบิก</h1>
 					</div>
-					<form action="CreateExpost" method="post" id="form-create">
+					<form action="CreateExpose" method="post" id="form-create">
+						<input type="hidden" name="user_id" id="user_id"
+							value="<%=gobalUser.getUser_id()%>">
 						<div class="col-sm-12 text-right">
 							<button class="btn btn-success btn-create">สร้างเอกสาร</button>
 						</div>
@@ -41,7 +43,7 @@
 									<label>ชื่อผู้ยืม</label> <input class="form-control" name=""
 										id=""
 										value="<%=gobalUser.getFirst_name() + " " + gobalUser.getLast_name()%>"
-										placeholder="ชื่อผู้ยืม">
+										placeholder="ชื่อผู้ยืม" readonly="readonly">
 								</div>
 								<div class="form-group">
 									<label>เพื่อใช้ในงาน</label>
@@ -193,7 +195,7 @@
 						remote : {
 							url : 'DuplicateDocExpose',
 							type : 'get',
-							date : {
+							data : {
 								document_no : function() {
 									return $('#document_no').val();
 								}
@@ -206,7 +208,8 @@
 				},
 				messages : {
 					document_no : {
-						required : 'ระบุเลขที่เอกสาร'
+						required : 'ระบุเลขที่เอกสาร',
+						remote : 'เลขที่วัสดุถูกใช้งานแล้ว'
 					},
 					date : {
 						required : 'ระบุวันที่ต้องการใช้งาน'
@@ -260,13 +263,25 @@
 
 			//create form
 			$('.btn-create').on('click', function() {
-				$('#form-create').valid();
+				var check = $('#form-create').valid();
+				var con_id = $('#myTable input[name=\"id_con\"]').serialize();
+				console.log(con_id);
+				if (con_id != "") {
+					if (check != false) {
+						$('#form-create').submit();
+					} else {
+						alert('กรุณาระบุข้อมูลให้ครบถ้วน');
+					}
+				} else {
+					alert('กรุณาระบุวัสดุที่ต้องการเบิก');
+				}
 			})
 		</script>
 
 		<script type="text/html" id="table-template">
 				<tr>
 					<input type="hidden" name="id_con" id="id_con" value="{{id}}">
+					<input type="hidden" name="amount_con" id="amount_con" value="{{amount}}">
 					<td class="text-center">{{code}}</td>
 					<td class="text-center">{{name}}</td>
 					<td class="text-center">{{amount}}</td>

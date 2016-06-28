@@ -12,7 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.ConsumableDao;
+import com.dao.ExposeDao;
+import com.dao.ExposeDetailsDao;
+import com.model.ConsumDetails;
 import com.model.Consumable;
+import com.model.ExposeDB;
+import com.model.ExposeDetails;
 import com.model.Users;
 
 /**
@@ -25,10 +30,11 @@ public class CreateExpose extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	
+
 	private ConsumableDao conDao = new ConsumableDao();
-	
-	
+	private ExposeDao exDao = new ExposeDao();
+	private ExposeDetailsDao exdDao = new ExposeDetailsDao();
+
 	public CreateExpose() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -47,7 +53,7 @@ public class CreateExpose extends HttpServlet {
 		if (ssID != null) {
 			Users gobalUser = (Users) ss.getAttribute("gobalUser");
 			if (gobalUser != null) {
-				List<Consumable> listCon = (ArrayList<Consumable>)conDao.getAll();
+				List<Consumable> listCon = (ArrayList<Consumable>) conDao.getAll();
 				request.setAttribute("listCon", listCon);
 				request.getRequestDispatcher("Views/Expose/CreateExpose.jsp").forward(request, response);
 
@@ -65,8 +71,34 @@ public class CreateExpose extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		ExposeDB item = new ExposeDB();
+		item.setDate(request.getParameter("date"));
+		item.setDocument_no(request.getParameter("document_no"));
+		item.setNote(request.getParameter("note"));
+		item.setStatus("Waiting");
+		item.setUse_for(request.getParameter("use_for"));
+		item.setUser_id(Integer.parseInt(request.getParameter("user_id")));
+		String[] con_id = request.getParameterValues("id_con");
+		String[] amount = request.getParameterValues("amount_con");
+
+		exDao.add(item);
+		item = exDao.findDocument(item.getDocument_no());
+		int i = 0;
+		for (String obj : con_id) {
+			Consumable con = new Consumable();
+			con = conDao.find(Integer.parseInt(obj));
+			ExposeDetails ex = new ExposeDetails();
+			ex.setAmount(Integer.parseInt(amount[i]));
+			ex.setCon_code(con.getCon_code());
+			ex.setCon_id(con.getCon_id());
+			ex.setCon_name(con.getCon_name());
+			ex.setEx_id(item.getEx_id());
+			exdDao.add(ex);
+			i++;
+		}
+		response.sendRedirect(request.getContextPath() + "/Expose");
 	}
 
 }

@@ -126,6 +126,7 @@
 					},
 					price : {
 						required : true,
+						number : true
 					},
 					input_date : {
 						required : true,
@@ -141,6 +142,7 @@
 					},
 					price : {
 						required : 'ระบุราคา',
+						number : 'เฉพาะตัวเลข'
 					},
 					input_date : "ระบุวันที่"
 				}
