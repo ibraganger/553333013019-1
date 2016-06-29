@@ -61,8 +61,10 @@
 									<th>#</th>
 									<th>รหัส</th>
 									<th>ชื่อวัสดุ</th>
-									<th class="text-center">จำนวน</th>
 									<th class="text-center">หน่วย</th>
+									<th class="text-center">รับ</th>
+									<th class="text-center">จ่าย</th>
+									<th class="text-center">คงเหลือ</th>
 									<%
 										if (gobalUser.getRole().equals("admin")) {
 									%>
@@ -80,8 +82,10 @@
 									<td><%=count++%></td>
 									<td><%=list.getCon_code()%></td>
 									<td><%=list.getCon_name()%></td>
-									<td class="text-center"><%=list.getAmount_tt()%></td>
 									<td class="text-center"><%=list.getUnit()%></td>
+									<td class="text-center"><%=list.getImp_amount()%></td>
+									<td class="text-center"><%=list.getExp_amount()%></td>
+									<td class="text-center"><%=list.getAmount_tt()%></td>
 									<%
 										if (gobalUser.getRole().equals("admin")) {
 									%>
@@ -134,8 +138,10 @@
 			$('.btn-delete').on('click', function() {
 				$modal = $('.modal-delete');
 				var id = $(this).data('id');
-				$modal.find('#set_con_code').text($(this).data('code'));
-				$modal.find('#set_con_name').text($(this).data('name'));
+				var code = 'รหัสวัสดุ : ' + $(this).data('code');
+				var name = 'ชื่อวัสดุ : ' + $(this).data('name');
+				$modal.find('#set_con_code').text(code);
+				$modal.find('#set_con_name').text(name);
 				$modal.modal('show');
 				$modal.find('.btn-modal-delete').on('click', function() {
 					$.ajax({
