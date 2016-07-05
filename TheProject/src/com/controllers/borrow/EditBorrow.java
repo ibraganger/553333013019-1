@@ -61,8 +61,10 @@ public class EditBorrow extends HttpServlet {
 			if (gobalUser != null) {
 				BorrowDB borItem = (BorrowDB) brDao.findID(id);
 				List<BorrowDetails> borDetailsItem = (List<BorrowDetails>) brdDao.findBorID(id);
+				Users userItem = (Users)uDao.find(borItem.getUser_id());
 				request.setAttribute("borItem", borItem);
 				request.setAttribute("borDetailsItem", borDetailsItem);
+				request.setAttribute("userItem", userItem);
 				request.getRequestDispatcher("/Views/Borrow/EditBorrow.jsp").forward(request, response);
 				;
 			}

@@ -131,11 +131,11 @@
 						class="fa fa-edit fa-fw"></i> ยืมครุภัณฑ์</a></li>
 				<li><a href="<%=request.getContextPath()%>/Expose"><i
 						class="fa fa-edit fa-fw"></i> เบิกครุภัณฑ์</a> <!-- /.nav-second-level --></li>
-				<li><a href="<%=request.getContextPath()%>/Repair"><i
-						class="fa fa-wrench fa-fw"></i>ซ่อมบำรุง</a> <!-- /.nav-second-level --></li>
 				<%
 					if (user.getRole().equals("admin")) {
 				%>
+				<li><a href="<%=request.getContextPath()%>/Repair"><i
+						class="fa fa-wrench fa-fw"></i>ซ่อมบำรุง</a> <!-- /.nav-second-level --></li>
 				<li><a href="<%=request.getContextPath()%>/UserInfo"><i
 						class="fa fa-user fa-fw"></i> ข้อมูลผู้ใช้</a> <!-- /.nav-second-level --></li>
 				<%

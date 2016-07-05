@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-07-04T18:00:37 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PermanentList" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f394042f-dea8-44ca-b727-10694342e2d3">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="project_asset"/>
+	<queryString>
+		<![CDATA[select * from project_asset.per_details as pd 
+join project_asset.permanent as p
+on pd.per_id = p.per_id]]>
+	</queryString>
+	<field name="asset_id" class="java.lang.Integer"/>
+	<field name="asset_code" class="java.lang.String"/>
+	<field name="asset_name" class="java.lang.String"/>
+	<field name="per_status" class="java.lang.String"/>
+	<field name="per_storage" class="java.lang.String"/>
+	<field name="note" class="java.lang.String"/>
+	<field name="per_id" class="java.lang.Integer"/>
+	<field name="use_status" class="java.lang.String"/>
+	<field name="COLUMN_9" class="java.lang.Integer"/>
+	<field name="per_code" class="java.lang.String"/>
+	<field name="per_name" class="java.lang.String"/>
+	<field name="amount" class="java.lang.Integer"/>
+	<field name="unit" class="java.lang.String"/>
+	<field name="price" class="java.lang.Double"/>
+	<field name="peice_sum" class="java.lang.Double"/>
+	<field name="input_date" class="java.lang.String"/>
+	<field name="life_time" class="java.lang.Integer"/>
+	<field name="COLUMN_18" class="java.lang.String"/>
+	<group name="per_id">
+		<groupExpression><![CDATA[$F{per_id}]]></groupExpression>
+	</group>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{per_id}]]></groupExpression>
+		<groupHeader>
+			<band height="62">
+				<textField>
+					<reportElement x="10" y="0" width="100" height="30" uuid="ba572f06-3fb5-427d-aea8-19c55f64b7b9"/>
+					<textFieldExpression><![CDATA[$F{per_id}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="65">
+			<textField>
+				<reportElement x="93" y="35" width="100" height="30" uuid="d5769621-8f1b-4f58-8ebd-84cce02d4a76"/>
+				<textFieldExpression><![CDATA[$F{asset_code}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-7" y="35" width="100" height="30" uuid="7d998213-04a7-4bbb-8f24-e7511ea23053"/>
+				<text><![CDATA[asset_code]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

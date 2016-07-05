@@ -13,6 +13,7 @@
 	BorrowDB borItem = (BorrowDB) request.getAttribute("borItem");
 	List<BorrowDetails> borDetailsItem = (List<BorrowDetails>) request.getAttribute("borDetailsItem");
 	Users gobalUser = (Users) session.getAttribute("gobalUser");
+	Users userItem = (Users)request.getAttribute("userItem");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -65,7 +66,7 @@
 								</div>
 								<div class="form-group">
 									<label>ชื่อผู้ยืม</label> <input
-										value="<%=gobalUser.getFirst_name() + " " + gobalUser.getLast_name()%>"
+										value="<%=userItem.getFirst_name() + " " + userItem.getLast_name()%>"
 										class="form-control" placeholder="ชื่อผู้ยืม">
 								</div>
 								<div class="form-group">
