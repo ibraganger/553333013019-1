@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.model.RepairDetails;
 import com.util.DbUtil;
 
@@ -25,7 +24,7 @@ public class RepairDetailsDao {
 				item.setNote(rs.getString("note"));
 				item.setAsset_code(rs.getString("asset_code"));
 				item.setAsset_name(rs.getString("asset_name"));
-				item.setPer_id(rs.getInt("Per_id"));
+				item.setAsset_id(rs.getInt("asset_id"));
 				item.setId(rs.getInt("id"));
 				items.add(item);
 			}
@@ -50,7 +49,7 @@ public class RepairDetailsDao {
 				item.setNote(rs.getString("note"));
 				item.setAsset_code(rs.getString("asset_code"));
 				item.setAsset_name(rs.getString("asset_name"));
-				item.setPer_id(rs.getInt("Per_id"));
+				item.setAsset_id(rs.getInt("asset_id"));
 				item.setId(rs.getInt("id"));
 				items.add(item);
 			}
@@ -65,8 +64,8 @@ public class RepairDetailsDao {
 	}
 
 	public void add(RepairDetails item) {
-		String sql = "call add_repair_details(" + item.getId() + "," + "'" + item.getAsset_code() + "'," + "'"
-				+ item.getAsset_name() + "'," + item.getPer_id() + "'," + "'" + item.getNote() + ")";
+		String sql = "call add_repair_details(" + item.getAsset_id() + ",'" + item.getAsset_code() + "','"
+				+ item.getAsset_id() + "','" + item.getNote() + "')";
 		try {
 			Statement st = con.createStatement();
 			st.executeQuery(sql);
@@ -77,8 +76,8 @@ public class RepairDetailsDao {
 	}
 
 	public void update(RepairDetails item) {
-		String sql = "call edit_repair_details(" + item.getId() + "," + item.getId() + ",'" + item.getAsset_code()
-				+ "','" + item.getAsset_name() + "'," + item.getPer_id() + "'," + "'" + item.getNote() + ")";
+		String sql = "call edit_repair_details(" + item.getId() + "," + item.getAsset_id() + "','"
+				+ item.getAsset_code() + "','" + item.getAsset_name() + "','" + item.getNote() + ")";
 		try {
 			Statement st = con.createStatement();
 			st.executeQuery(sql);

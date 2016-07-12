@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dao.RepairDao;
 import com.model.Users;
 
 /**
@@ -24,6 +25,7 @@ public class Repair extends HttpServlet {
 	private String search = "";
 	private String input_date = "";
 	private String return_date = "";
+	private RepairDao rpDao = new RepairDao();
 
 	public Repair() {
 		super();
@@ -61,7 +63,12 @@ public class Repair extends HttpServlet {
 				request.setAttribute("search", search);
 				request.setAttribute("input_date", input_date);
 				request.setAttribute("return_date", return_date);
-
+				
+				if (gobalUser.getRole().equals("admin")) {
+					request.setAttribute("list", rpDao.getAll());
+				} else {
+					request.setAttribute("list", rpDao.getAll());
+				}
 				request.getRequestDispatcher("Views/Repair/Index.jsp").forward(request, response);
 
 			} else {

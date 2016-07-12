@@ -1,5 +1,15 @@
+<%@page import="java.util.List"%>
+<%@page import="com.model.RepairDB"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	
+<%
+	List<RepairDB> list = (ArrayList<RepairDB>) request.getAttribute("list");
+	Users gobUsers = (Users) session.getAttribute("gobalUser");
+	int count = 1;
+%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -51,7 +61,7 @@
 									<i class="fa fa-search fa-fw"></i>ค้นหา
 								</button>
 								<a href="<%=request.getContextPath() + "/Repair"%>"
-								class="btn btn-warning"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
+									class="btn btn-warning"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
 								<a href="CreateRepair" class="btn btn-success"><i
 									class="fa fa-plus fa-fw"></i>สร้างเอกสาร</a>
 							</div>
@@ -70,6 +80,21 @@
 									<th class="text-center">จัดการ</th>
 								</tr>
 							</thead>
+							<tbody>
+								<%
+									for (RepairDB item : list){
+								%>
+								<tr>
+									<td class="text-center"><%=count++ %></td>
+									<td class="text-center"><%=item.getDocument_no() %></td>
+									<td class="text-center"><%=item.getDate() %></td>
+									<td class="text-center"><%=item.getReturn_date() %></td>
+									<td class="text-center"><%=item.getStatus() %></td>
+								</tr>
+								<%
+									}
+								%>
+							</tbody>
 						</table>
 					</div>
 				</div>
@@ -89,8 +114,55 @@
 				responsive : true,
 				'searching' : false
 			});
+
+			$('.btn-delete').on('click', function() {
+				$modal = $('.modal-delete');
+				var bor_id = $(this).data('id');
+				var doc_no = $(this).data('doc_no');
+				$modal.find('#text-doc_no').text('เลขที่เอกสาร : ' + doc_no);
+				$modal.modal('show');
+				$modal.find('.btn-confirm').on('click', function() {
+					$.ajax({
+						url : 'DeleteRepair',
+						type : 'get',
+						data : {
+							repair_id : repair_id
+						}
+					}).done(function() {
+						window.location.reload();
+					})
+				})
+			})
 		})
 	</script>
+
+	<div class="modal fade modal-delete" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">ลบเอกสาร</h4>
+				</div>
+				<div class="modal-body">
+					<p>คุณต้องการดำเนินการลบเอกสารดังต่อไปนี้</p>
+					<p id="text-doc_no"></p>
+					<p>เอกสารจะถูกลบออกจากฐานข้อมูลของระบบ หากต้องการดำเนินการต่อ
+						กรุณากด "Comfirm"</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning btn-confirm"
+						data-dismiss="modal">Confirm</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.model;
 
 public class RepairDB {
+
+	
 	private int repair_id;
 	private String document_no;
 	private String date;
@@ -8,6 +10,14 @@ public class RepairDB {
 	private String repair_center;
 	private String note;
 	private int user_id;
+	private String status;
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public int getRepair_id() {
 		return repair_id;
 	}

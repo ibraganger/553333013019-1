@@ -1,22 +1,18 @@
 package com.model;
 
 public class RepairDetails {
-	private int id;
-	private int per_id;
-	private String asset_code;
-	private String asset_name;
-	private String note;
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getPer_id() {
-		return per_id;
+	public int getAsset_id() {
+		return asset_id;
 	}
-	public void setPer_id(int per_id) {
-		this.per_id = per_id;
+	public void setAsset_id(int asset_id) {
+		this.asset_id = asset_id;
 	}
 	public String getAsset_code() {
 		return asset_code;
@@ -36,5 +32,12 @@ public class RepairDetails {
 	public void setNote(String note) {
 		this.note = note;
 	}
+	private int id;
+	private int asset_id;
+	private String asset_code;
+	private String asset_name;
+	private String note;
+
+	
 	
 }
