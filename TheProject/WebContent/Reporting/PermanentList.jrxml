@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-07-05T15:26:38 -->
+<!-- 2016-07-05T16:30:17 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PermanentList" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8ee6d455-089a-49ff-920b-66e3541f3058">
 	<property name="com.jaspersoft.studio.data.sql.tables" value="cHJvamVjdF9hc3NldC5wZXJtYW5lbnQgQVMgLDE0MywxNSw1OGQ3MjI4Yy1jY2M4LTQzM2YtYWEz&#xA;NS0zM2M4NzY0YWZkMDY7cHJvamVjdF9hc3NldC5wZXJfZGV0YWlscyBBUyAsMTUsNDEsNzk0ODhl&#xA;MjEtNmZhZi00NWE5LWE5MGUtNjRhNDFhMTc4NTk0Ow=="/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="project_asset"/>
@@ -124,7 +124,7 @@ FROM project_asset.per_details AS pd
 					<textElement textAlignment="Right">
 						<font isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new java.text.DecimalFormat(" #,##0.00").format(Double.valueOf($F{price}))]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="499" y="0" width="71" height="20" uuid="b7fc2699-2f7c-4f38-b6ef-f4d90861a7cd"/>
@@ -137,7 +137,7 @@ FROM project_asset.per_details AS pd
 					<textElement textAlignment="Right">
 						<font isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{peice_sum}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new java.text.DecimalFormat(" #,##0.00").format(Double.valueOf($F{peice_sum}))]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="570" y="0" width="40" height="20" uuid="2af818e2-0691-45b3-b493-57bc2c5dfca4"/>

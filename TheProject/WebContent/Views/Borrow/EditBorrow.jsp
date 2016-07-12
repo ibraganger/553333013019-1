@@ -1,4 +1,3 @@
-<%@page import="sun.misc.FpUtils"%>
 <%@page import="com.model.BorrowDB"%>
 <%@page import="com.model.BorrowDetails"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>

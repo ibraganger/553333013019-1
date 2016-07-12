@@ -4,6 +4,10 @@ public class RepairDB {
 	private int repair_id;
 	private String document_no;
 	private String date;
+	private String return_date;
+	private String repair_center;
+	private String note;
+	private int user_id;
 	public int getRepair_id() {
 		return repair_id;
 	}
@@ -40,14 +44,12 @@ public class RepairDB {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public String getUser_id() {
+	public int getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(String user_id) {
+	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	private String return_date;
-	private String repair_center;
-	private String note;
-	private String user_id;
+
+
 }

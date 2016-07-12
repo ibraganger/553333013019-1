@@ -1,4 +1,3 @@
-<%@page import="com.sun.xml.internal.ws.api.ha.StickyFeature"%>
 <%@page import="com.dao.DepartmentDao"%>
 <%@page import="com.dao.FacultyDao"%>
 <%@page import="com.model.Department"%>

@@ -13,7 +13,7 @@ import com.model.Users;
 /**
  * Servlet implementation class Report
  */
-@WebServlet("/Report")
+@WebServlet("/Reporting")
 public class Report extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,20 +31,9 @@ public class Report extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		HttpSession ss = request.getSession();
-		String ssID = ss.getId();
-		if (ssID != null) {
-			Users gobalUser = (Users) ss.getAttribute("gobalUser");
-			if (gobalUser != null) {
-				request.getRequestDispatcher("Views/Report/Index.jsp").forward(request, response);
-			} else {
-				response.sendRedirect(request.getContextPath() + "/Login");
-			}
-		} else {
-			response.sendRedirect(request.getContextPath() + "/Login");
-		}
+
+				request.getRequestDispatcher("Reporting/ComsumableList.jsp").forward(request, response);
+	
 	}
 
 	/**

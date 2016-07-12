@@ -52,7 +52,7 @@
 								</button>
 								<a href="<%=request.getContextPath() + "/Repair"%>"
 								class="btn btn-warning"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
-								<a href="#" class="btn btn-success"><i
+								<a href="CreateRepair" class="btn btn-success"><i
 									class="fa fa-plus fa-fw"></i>สร้างเอกสาร</a>
 							</div>
 						</form>
