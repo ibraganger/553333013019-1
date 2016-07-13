@@ -110,258 +110,175 @@
 							<!-- /.container-fluid -->
 						</div>
 						<!-- /#page-wrapper -->
+					</form>
 				</div>
+			</div>
+		</div>
+	</div>
 
-				<!-- modal find asset list  -->
-				<div class="modal fade modal-find" tabindex="-1" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<h4 class="modal-title">รายการวัสดุที่ยืมได้</h4>
-							</div>
-							<div class="modal-body">
-								<div class="input-group">
-									<span class="input-group-addon">Filter</span> <input
-										id="filter" type="text" class="form-control"
-										placeholder="Type here...">
-								</div>
-								<div class="asset-list"></div>
-							</div>
-							<div class="modal-footer">
-								<button type="submit" class="btn btn-primary"
-									data-dismiss="modal">Close</button>
-							</div>
-						</div>
+	<!-- modal find asset list  -->
+	<div class="modal fade modal-find" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">รายการวัสดุที่ยืมได้</h4>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<span class="input-group-addon">Filter</span> <input id="filter"
+							type="text" class="form-control" placeholder="Type here...">
 					</div>
+					<div class="asset-list"></div>
 				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-				<script type="text/javascript">
-					$(document)
-							.ready(
-									function() {
-										$('#datetimepicker1').datepicker();
-										$('#datetimepicker2').datepicker();
-										var countTable = 1;
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#datetimepicker1').datepicker();
+			$('#datetimepicker2').datepicker();
+			var countTable = 1;
 
-										//call modal for show list asset
-										$('.btn-find')
-												.on(
-														'click',
-														function() {
-															$modal = $('.modal-find');
-															$
-																	.ajax(
-																			{
-																				url : 'FindAssetList',
-																				type : 'get',
-																				data : $(
-																						'#myTable :input')
-																						.serialize()
-																			})
-																	.done(
-																			function(
-																					data) {
-																				var template = $(
-																						'#table-modal')
-																						.html();
-																				var rendered = Mustache
-																						.render(
-																								template,
-																								data);
-																				$modal
-																						.find(
-																								'.asset-list')
-																						.html(
-																								rendered);
-																			});
-															//search in table modal
-															$modal
-																	.find(
-																			'#filter')
-																	.keyup(
-																			function() {
-																				var rex = new RegExp(
-																						$(
-																								this)
-																								.val(),
-																						'i');
-																				$(
-																						'.searchable tr')
-																						.hide();
-																				$(
-																						'.searchable tr')
-																						.filter(
-																								function() {
-																									return rex
-																											.test($(
-																													this)
-																													.text());
-																								})
-																						.show();
-																			});
-															//btn select asset code to textbox search
+			//call modal for show list asset
+			$('.btn-find').on('click', function() {
+				$modal = $('.modal-find');
+				$.ajax({
+					url : 'FindAssetList',
+					type : 'get',
+					data : $('#myTable :input').serialize()
+				}).done(function(data) {
+					var template = $('#table-modal').html();
+					var rendered = Mustache.render(template, data);
+					$modal.find('.asset-list').html(rendered);
+				});
+				//search in table modal
+				$modal.find('#filter').keyup(function() {
+					var rex = new RegExp($(this).val(), 'i');
+					$('.searchable tr').hide();
+					$('.searchable tr').filter(function() {
+						return rex.test($(this).text());
+					}).show();
+				});
+				//btn select asset code to textbox search
 
-															$modal
-																	.modal('show');
-														});
+				$modal.modal('show');
+			});
 
-										$('#btn-select').on('click',
-												function() {
-													alert('sss');
-												});
+			$('#btn-select').on('click', function() {
+				alert('sss');
+			});
 
-										//remove item from table list
-										$("#myTable").on(
-												'click',
-												'.remCF',
-												function() {
-													$(this).parent().parent()
-															.remove();
-												});
+			//remove item from table list
+			$("#myTable").on('click', '.remCF', function() {
+				$(this).parent().parent().remove();
+			});
 
-										//append item to table list
-										$('.btn-append')
-												.on(
-														'click',
-														function() {
-															var code = $(
-																	'#search')
-																	.val();
-															var arr = $(
-																	'#myTable input')
-																	.serializeArray();
-															var checkCode = true;
-															$
-																	.each(
-																			arr,
-																			function(
-																					i,
-																					val) {
-																				if (val.value == code) {
-																					checkCode = false;
-																				}
-																			})
-															if (checkCode != false) {
-																if (code != ""
-																		| code != null) {
-																	$
-																			.ajax(
-																					{
-																						url : 'FindPerCode',
-																						type : 'get',
-																						data : {
-																							code : code
-																						}
-																					})
-																			.done(
-																					function(
-																							data) {
-																						if (data != 'null') {
-																							var item = {
-																								countList : countTable++,
-																								id : data.asset_id,
-																								code : data.asset_code,
-																								name : data.asset_name
-																							}
-																							var templete = $(
-																									'#add-to-table')
-																									.html();
-																							var rendered = Mustache
-																									.render(
-																											templete,
-																											item);
-																							$(
-																									'#myTable tr:last')
-																									.after(
-																											rendered);
-																						}
-																					});
-																}
-															}
-															$('#search')
-																	.val("");
-														});
+			//append item to table list
+			$('.btn-append').on('click', function() {
+				var code = $('#search').val();
+				var arr = $('#myTable input').serializeArray();
+				var checkCode = true;
+				$.each(arr, function(i, val) {
+					if (val.value == code) {
+						checkCode = false;
+					}
+				})
+				if (checkCode != false) {
+					if (code != "" | code != null) {
+						$.ajax({
+							url : 'FindPerCode',
+							type : 'get',
+							data : {
+								code : code
+							}
+						}).done(function(data) {
+							if (data != 'null') {
+								var item = {
+									countList : countTable++,
+									id : data.asset_id,
+									code : data.asset_code,
+									name : data.asset_name
+								}
+								var templete = $('#add-to-table').html();
+								var rendered = Mustache.render(templete, item);
+								$('#myTable tr:last').after(rendered);
+							}
+						});
+					}
+				}
+				$('#search').val("");
+			});
 
-										$('#form-create')
-												.validate(
-														{
-															rules : {
-																document_no : {
-																	required : true,
+			$('#form-create').validate({
+				rules : {
+					document_no : {
+						required : true,
 
-																	remote : {
-																		url : 'DuplicateDocRepair',
-																		type : 'get',
-																		data : {
-																			document_no : function() {
-																				return $(
-																						'#document_no')
-																						.val();
-																			}
-																		}
-																	}
-																},
-																use_for : {
-																	maxlength : 200
-																},
-																date : {
-																	required : true,
-																	maxlength : 200
-																},
-																return_date : {
-																	required : true,
-																	maxlength : 200
-																}
-															},
-															messages : {
-																document_no : {
-																	required : 'ระบุเลขที่เอกสาร',
-																	maxlength : 'ไม่เกิน 200 ตัวอักษร',
-																	remote : 'เลขที่เอกสารมีอยู่แล้ว'
-																},
-																use_for : {
-																	maxlength : 'ไม่เกิน 200 ตัวอักษร'
-																},
-																date : {
-																	required : 'ระบุวันที่ต้องการรับวัสดุ',
-																	maxlength : 'ไม่เกิน 200 ตัวอักษร'
-																},
-																return_date : {
-																	required : 'ระบุกำหนดส่งคืนวัสดุ',
-																	maxlength : 'ไม่เกิน 200 ตัวอักษร'
-																}
-															}
-														});
+						remote : {
+							url : 'DuplicateDocRepair',
+							type : 'get',
+							data : {
+								document_no : function() {
+									return $('#document_no').val();
+								}
+							}
+						}
+					},
+					use_for : {
+						maxlength : 200
+					},
+					date : {
+						required : true,
+						maxlength : 200
+					},
+					return_date : {
+						required : true,
+						maxlength : 200
+					}
+				},
+				messages : {
+					document_no : {
+						required : 'ระบุเลขที่เอกสาร',
+						maxlength : 'ไม่เกิน 200 ตัวอักษร',
+						remote : 'เลขที่เอกสารมีอยู่แล้ว'
+					},
+					use_for : {
+						maxlength : 'ไม่เกิน 200 ตัวอักษร'
+					},
+					date : {
+						required : 'ระบุวันที่ต้องการรับวัสดุ',
+						maxlength : 'ไม่เกิน 200 ตัวอักษร'
+					},
+					return_date : {
+						required : 'ระบุกำหนดส่งคืนวัสดุ',
+						maxlength : 'ไม่เกิน 200 ตัวอักษร'
+					}
+				}
+			});
 
-										$(".btn-create")
-												.on(
-														'click',
-														function(event) {
-															var asset_id = $(
-																	'#myTable input')
-																	.serialize();
-															if (asset_id == null
-																	| asset_id == "") {
-																alert("ระบุวัสดุที่ต้องการยิม");
-															} else {
-																var check = $(
-																		'#form-create')
-																		.valid();
-																if (check != 0) {
-																	$(
-																			"#form-create")
-																			.submit();
-																}
-															}
-														});
+			$(".btn-create").on('click', function(event) {
+				var asset_id = $('#myTable input').serialize();
+				if (asset_id == null | asset_id == "") {
+					alert("ระบุวัสดุที่ต้องการยิม");
+				} else {
+					var check = $('#form-create').valid();
+					if (check != 0) {
+						$("#form-create").submit();
+					}
+				}
+			});
 
-									})
-				</script>
-				<script type="text/html" id="add-to-table">
+		})
+	</script>
+	<script type="text/html" id="add-to-table">
 	<tr>
 		<input type="hidden" name="asset_id" id="asset_id" value="{{id}}">
 		<input type="hidden" name="asset_code" id="asset_code" value="{{code}}">
@@ -378,8 +295,8 @@
 	</script>
 
 
-				<!--/ template modal show asset list/-->
-				<script type="text/html" id="table-modal">
+	<!--/ template modal show asset list/-->
+	<script type="text/html" id="table-modal">
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>

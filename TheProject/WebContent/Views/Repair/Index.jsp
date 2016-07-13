@@ -6,7 +6,7 @@
 	
 <%
 	List<RepairDB> list = (ArrayList<RepairDB>) request.getAttribute("list");
-	Users gobUsers = (Users) session.getAttribute("gobalUser");
+	Users gobalUser = (Users) session.getAttribute("gobalUser");
 	int count = 1;
 %>
 
@@ -57,12 +57,20 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<select class="form-control" name="status">
+									<option value="">สถานะ...</option>
+									
+									<option value="Repairing">Repairing</option>
+									<option value="Returned">Returned</option>
+								</select>
+							</div>
+							<div class="form-group">
 								<button type="submit" class="btn btn-info">
 									<i class="fa fa-search fa-fw"></i>ค้นหา
 								</button>
-								<a href="<%=request.getContextPath() + "/Repair"%>"
+								<a href="<%=request.getContextPath()%>/Repair"
 									class="btn btn-warning"><i class="fa fa-refresh fa-fw"></i>รีเซ็ต</a>
-								<a href="CreateRepair" class="btn btn-success"><i
+								<a href="<%=request.getContextPath()%>/CreateRepair" class="btn btn-success"><i
 									class="fa fa-plus fa-fw"></i>สร้างเอกสาร</a>
 							</div>
 						</form>
@@ -80,7 +88,7 @@
 									<th class="text-center">จัดการ</th>
 								</tr>
 							</thead>
-							<tbody>
+							 <tbody>
 								<%
 									for (RepairDB item : list){
 								%>
@@ -90,6 +98,28 @@
 									<td class="text-center"><%=item.getDate() %></td>
 									<td class="text-center"><%=item.getReturn_date() %></td>
 									<td class="text-center"><%=item.getStatus() %></td>
+								<%
+									if (gobalUser.getRole().equals("admin")) {
+								%>
+								<td class="text-center">
+								<a href="EditRepair?repair_id=<%=item.getRepair_id()%>" style="cursor: pointer; color: blue;">
+								<i class="fa fa-gear"></i></a> | <a class="btn-delete"
+										data-id="<%=item.getRepair_id()%>>"
+										data-doc_no="<%=item.getDocument_no()%>"
+										style="cursor: pointer; color: red;"><i
+										class="fa fa-trash"></i></a></td>
+								<%
+									} else {
+								%>
+								<td class="text-center"><a
+										style="cursor: pointer; color: gray;"><i
+											class="fa fa-gear"></i></a> | <a
+										style="cursor: pointer; color: gray;"><i
+											class="fa fa-trash"></i></a></td>
+								<%
+									}
+								%>
+
 								</tr>
 								<%
 									}
@@ -117,7 +147,7 @@
 
 			$('.btn-delete').on('click', function() {
 				$modal = $('.modal-delete');
-				var bor_id = $(this).data('id');
+				var repair_id = $(this).data('id');
 				var doc_no = $(this).data('doc_no');
 				$modal.find('#text-doc_no').text('เลขที่เอกสาร : ' + doc_no);
 				$modal.modal('show');
@@ -150,11 +180,11 @@
 					<p>คุณต้องการดำเนินการลบเอกสารดังต่อไปนี้</p>
 					<p id="text-doc_no"></p>
 					<p>เอกสารจะถูกลบออกจากฐานข้อมูลของระบบ หากต้องการดำเนินการต่อ
-						กรุณากด "Comfirm"</p>
+						กรุณากด "ยืนยัน"</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning btn-confirm"
-						data-dismiss="modal">Confirm</button>
+						data-dismiss="modal">ยืนยัน</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>

@@ -197,8 +197,8 @@ public class RepairDao {
 		}
 	}
 
-	public List<RepairDB> search(String document_no, String date, String return_date, String username) {
-		String sql = "call search_repair('%" + document_no + "%','%" + date + "%','%" + return_date + "%','%" + username
+	public List<RepairDB> search(String document_no, String date, String return_date, String status) {
+		String sql = "call search_repair('%" + document_no + "%','%" + date + "%','%" + return_date + "%','%" + status
 				+ "%')";
 
 		List<RepairDB> items = new ArrayList<>();
