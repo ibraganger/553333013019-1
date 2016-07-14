@@ -74,7 +74,7 @@ public class Login extends HttpServlet {
 		if (gobalUser != null) {
 			response.sendRedirect(request.getContextPath() + "/Permanent");
 		} else {
-			if (user.getUsername() != null) {
+			if (user != null) {
 
 				if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
 					session.setAttribute("gobalUser", user);

@@ -52,12 +52,27 @@ public class FindAssetList extends HttpServlet {
 						}
 					}
 				}
+				for (int i = 0; i < items.toArray().length;) {
+					if (items.get(i).getUse_status().equals("Using") | items.get(i).getStatus().equals("Repairing")) {
+						items.remove(i);
+					} else {
+						i++;
+					}
+				}
 				jsonResult = new Gson().toJson(items);
 				response.getWriter().write(jsonResult);
 			} else {
 				response.getWriter().write("null");
 			}
 		} else {
+
+			for (int i = 0; i < items.toArray().length;) {
+				if (items.get(i).getUse_status().equals("Using") | items.get(i).getStatus().equals("Repairing")) {
+					items.remove(i);
+				} else {
+					i++;
+				}
+			}
 			jsonResult = new Gson().toJson(items);
 			response.getWriter().write(jsonResult);
 		}

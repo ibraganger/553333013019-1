@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="/jspFile/css.jsp"%>
 <%@include file="/jspFile/js.jsp"%>
-<title>Insert title here</title>
+<title>สร้างเอกสารการส่งซ่อม</title>
 </head>
 <body>
 	<div id="wrapper">
@@ -238,10 +238,6 @@
 					date : {
 						required : true,
 						maxlength : 200
-					},
-					return_date : {
-						required : true,
-						maxlength : 200
 					}
 				},
 				messages : {
@@ -255,10 +251,6 @@
 					},
 					date : {
 						required : 'ระบุวันที่ต้องการรับวัสดุ',
-						maxlength : 'ไม่เกิน 200 ตัวอักษร'
-					},
-					return_date : {
-						required : 'ระบุกำหนดส่งคืนวัสดุ',
 						maxlength : 'ไม่เกิน 200 ตัวอักษร'
 					}
 				}

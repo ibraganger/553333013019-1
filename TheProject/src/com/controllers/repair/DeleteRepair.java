@@ -54,7 +54,8 @@ public class DeleteRepair extends HttpServlet {
 		Users adminUser= (Users) uDao.findUsername("admin");
 		for(RepairDetails obj : list){
 			PerDetails per = (PerDetails)pdDao.findAssetID(obj.getAsset_id());
-			per.setUse_status("Normal");
+			per.setStatus("Normal");
+			pdDao.update(per);
 			rpdDao.delete(obj.getId());
 		}
 		rpDao.delete(repair_id);

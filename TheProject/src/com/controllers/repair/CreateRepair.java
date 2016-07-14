@@ -81,16 +81,18 @@ public class CreateRepair extends HttpServlet {
 		item.setRepair_id(prDao.findDoc(item.getDocument_no()).getRepair_id());
 		for (String list : asset_id) {
 			PerDetails per = (PerDetails) pdDao.findAssetID(Integer.parseInt(list));
+			per.setStatus("Repairing");
 			RepairDetails obj = new RepairDetails();
 			obj.setAsset_code(per.getAsset_code());
 			obj.setAsset_id(Integer.parseInt(list));
 			obj.setAsset_name(per.getAsset_name());
 			obj.setNote(per.getNote());
 			obj.setRepair_id(item.getRepair_id());
+			pdDao.update(per);
 			rpdDao.add(obj);
 		}
 		response.sendRedirect(request.getContextPath() + "/Repair");
-		
+
 	}
 
 }

@@ -1,12 +1,12 @@
-<%@page import="com.model.Users"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+
+<%@page import="com.model.Users"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.model.RepairDetails"%>
 <%@page import="java.util.List"%>
 <%@page import="com.model.RepairDB"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+
 <%
 	Users gobalUser = (Users) session.getAttribute("gobalUser");
 	RepairDB item = (RepairDB) request.getAttribute("item");
@@ -21,7 +21,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="/jspFile/css.jsp"%>
 <%@include file="/jspFile/js.jsp"%>
-<title>Insert title here</title>
+<title>แก้ไขเอกสารการส่งซ่อม</title>
 </head>
 <body>
 	<div id="wrapper">
@@ -31,12 +31,14 @@
 			<div class="container-fluid">
 				<div class="row" style="margin-top: 50px;">
 					<div class="col-lg-12">
-						<h1 class="page-header">สร้างเอกสารการส่งซ่อม</h1>
+						<h1 class="page-header">แก้ไขเอกสารการส่งซ่อม</h1>
 					</div>
-					<form id="form-create" action="CreateRepair" method="post">
-
+					<form id="form-create" action="EditRepair" method="post">
+						<input type="hidden" name="check_doc" id="check_doc"
+							value="<%=item.getDocument_no()%>"> <input type="hidden"
+							name="repair_id" id="repair_id" value="<%=item.getRepair_id()%>">
 						<div class="col-sm-12 text-right">
-							<button type="button" class="btn btn-success btn-create">สร้างเอกสาร</button>
+							<button type="button" class="btn btn-success btn-create">บันทึก</button>
 						</div>
 						<input type="hidden" name="user_id" id="user_id"
 							value="<%=gobalUser.getUser_id()%>">
@@ -45,24 +47,25 @@
 								<div class="form-group">
 									<label>เลขที่เอกสาร</label> <input name="document_no"
 										id="document_no" class="form-control"
-										placeholder="เลขที่เอกสาร">
+										value="<%=item.getDocument_no()%>" placeholder="เลขที่เอกสาร">
 								</div>
 								<div class="form-group">
 									<label>ร้านที่ส่งซ่อม</label>
 									<textarea class="form-control" rows="3" cols=""
 										placeholder="ร้านที่ส่งซ่อม" name="repair_center"
-										id="repair_center"></textarea>
+										id="repair_center"><%=item.getRepair_center()%></textarea>
 								</div>
 								<div class="form-group">
 									<label>หมายเหตุ</label>
 									<textarea class="form-control" rows="3" cols=""
-										placeholder="หมายเหตุ" name="note" id="note"></textarea>
+										placeholder="หมายเหตุ" name="note" id="note"><%=item.getNote()%></textarea>
 								</div>
 								<div class="form-group">
 									<label>วันที่ส่งซ่อม</label>
 									<div class="form-group">
 										<div class='input-group date' id='datetimepicker1'>
-											<input name="date" id="date" type='text' class="form-control"
+											<input name="date" id="date" type='text'
+												value="<%=item.getDate()%>" class="form-control"
 												placeholder="วันที่" /> <span class="input-group-addon">
 												<span class="fa fa-calendar"></span>
 											</span>
@@ -70,10 +73,11 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label>วันที่รับคืน]</label>
+									<label>วันที่รับคืน</label>
 									<div class="form-group">
 										<div class='input-group date' id='datetimepicker2'>
-											<input name="return_date" id="return_date" type='text'
+											<input name="return_date" id="return_date"
+												value="<%=item.getReturn_date()%>" type='text'
 												class="form-control" placeholder="วันที่" /> <span
 												class="input-group-addon"> <span
 												class="fa fa-calendar"></span>
@@ -82,11 +86,27 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-sm-offset-2 col-sm-5"></div>
-									<div class="col-sm-5"></div>
+									<label>สถานะ</label>
+									<div class="form-group">
+										<%
+											if (item.getStatus().equals("Repairing")) {
+										%>
+										<select name="status" id="status" class="form-control">
+											<option value="Repairing" selected="selected">Repairing</option>
+											<option value="Returned">Returned</option>
+										</select>
+										<%
+											} else {
+										%>
+										<select name="status" id="status" class="form-control">
+											<option value="Repairing">Repairing</option>
+											<option value="Returned" selected="selected">Returned</option>
+										</select>
+										<%
+											}
+										%>
+									</div>
 								</div>
-
-								<!-- /.col-lg-12 -->
 							</div>
 							<div class="col-sm-8">
 								<div class="col-sm-12">
@@ -115,6 +135,26 @@
 												<th class="text-center">จัดการ</th>
 											</tr>
 										</thead>
+										<tbody>
+											<%
+												for (RepairDetails obj : itemList) {
+											%>
+											<tr>
+												<input type="hidden" name="asset_id" id="asset_id"
+													value="<%=obj.getAsset_id()%>">
+												<input type="hidden" name="asset_code" id="asset_code"
+													value="<%=obj.getAsset_code()%>">
+												<td class="text-left"><%=obj.getAsset_code()%></td>
+												<td class="text-left"><%=obj.getAsset_name()%></td>
+												<td class="text-center"><a style="cursor: pointer;"
+													href="javascript:void(0);" class="remCF"> <i
+														class="fa fa-trash-o fa-fw"></i>ลบ
+												</a></td>
+											</tr>
+											<%
+												}
+											%>
+										</tbody>
 									</table>
 								</div>
 								<!-- /.row -->
@@ -240,6 +280,9 @@
 							data : {
 								document_no : function() {
 									return $('#document_no').val();
+								},
+								check_doc : function() {
+									return $('#check_doc').val();
 								}
 							}
 						}
@@ -248,10 +291,6 @@
 						maxlength : 200
 					},
 					date : {
-						required : true,
-						maxlength : 200
-					},
-					return_date : {
 						required : true,
 						maxlength : 200
 					}
@@ -267,10 +306,6 @@
 					},
 					date : {
 						required : 'ระบุวันที่ต้องการรับวัสดุ',
-						maxlength : 'ไม่เกิน 200 ตัวอักษร'
-					},
-					return_date : {
-						required : 'ระบุกำหนดส่งคืนวัสดุ',
 						maxlength : 'ไม่เกิน 200 ตัวอักษร'
 					}
 				}
