@@ -104,7 +104,7 @@
 								<td class="text-center">
 								<a href="EditRepair?repair_id=<%=item.getRepair_id()%>" style="cursor: pointer; color: blue;">
 								<i class="fa fa-gear"></i></a> | <a class="btn-delete"
-										data-id="<%=item.getRepair_id()%>>"
+										data-id="<%=item.getRepair_id()%>"
 										data-doc_no="<%=item.getDocument_no()%>"
 										style="cursor: pointer; color: red;"><i
 										class="fa fa-trash"></i></a></td>

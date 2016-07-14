@@ -131,7 +131,7 @@ public class RepairDao {
 
 	public RepairDB findID(int id) {
 
-		String sql = "select * from repair_permanent where bor_id = " + id;
+		String sql = "select * from repair_permanent where repair_id = " + id;
 		try {
 			RepairDB item = new RepairDB();
 			Statement st = con.createStatement();

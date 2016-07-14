@@ -26,6 +26,7 @@ public class RepairDetailsDao {
 				item.setAsset_name(rs.getString("asset_name"));
 				item.setAsset_id(rs.getInt("asset_id"));
 				item.setId(rs.getInt("id"));
+				item.setRepair_id(rs.getInt("repair_id"));
 				items.add(item);
 			}
 			if (items != null) {
@@ -51,6 +52,7 @@ public class RepairDetailsDao {
 				item.setAsset_name(rs.getString("asset_name"));
 				item.setAsset_id(rs.getInt("asset_id"));
 				item.setId(rs.getInt("id"));
+				item.setRepair_id(rs.getInt("repair_id"));
 				items.add(item);
 			}
 			if (items != null) {
@@ -65,7 +67,7 @@ public class RepairDetailsDao {
 
 	public void add(RepairDetails item) {
 		String sql = "call add_repair_details(" + item.getAsset_id() + ",'" + item.getAsset_code() + "','"
-				+ item.getAsset_id() + "','" + item.getNote() + "')";
+				+ item.getAsset_id() + "','" + item.getNote() +"',"+ item.getRepair_id()+")";
 		try {
 			Statement st = con.createStatement();
 			st.executeQuery(sql);

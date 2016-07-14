@@ -86,6 +86,7 @@ public class CreateRepair extends HttpServlet {
 			obj.setAsset_id(Integer.parseInt(list));
 			obj.setAsset_name(per.getAsset_name());
 			obj.setNote(per.getNote());
+			obj.setRepair_id(item.getRepair_id());
 			rpdDao.add(obj);
 		}
 		response.sendRedirect(request.getContextPath() + "/Repair");
