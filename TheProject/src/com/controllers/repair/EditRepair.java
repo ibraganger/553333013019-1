@@ -100,7 +100,6 @@ public class EditRepair extends HttpServlet {
 			pdDao.update(per);
 			rpdDao.delete(obj.getId());
 		}
-		
 
 		if (item.getStatus().equals("Repairing")) {
 			for (String id : asset_id) {
@@ -116,6 +115,7 @@ public class EditRepair extends HttpServlet {
 				obj.setRepair_id(item.getRepair_id());
 				rpdDao.add(obj);
 			}
+			rpDao.update(item);
 		} else {
 			for (String id : asset_id) {
 				PerDetails per = pdDao.findAssetID(Integer.parseInt(id));
@@ -130,9 +130,9 @@ public class EditRepair extends HttpServlet {
 				obj.setRepair_id(item.getRepair_id());
 				rpdDao.add(obj);
 			}
+			rpDao.update(item);
 		}
-		response.sendRedirect(request.getContextPath()+"/Repair");
+		response.sendRedirect(request.getContextPath() + "/Repair");
 	}
-	
 
 }

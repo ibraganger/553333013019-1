@@ -46,12 +46,45 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<%
+									if (request.getAttribute("status").equals("Waiting")) {
+								%>
+								<select class="form-control" name="status">
+									<option value="">สถานะ...</option>
+									<option value="Waiting" selected="selected">Waiting</option>
+									<option value="Approved">Approved</option>
+									<option value="Returned">Returned</option>
+								</select>
+								<%
+									} else if (request.getAttribute("status").equals("Approved")) {
+								%>
+								<select class="form-control" name="status">
+									<option value="">สถานะ...</option>
+									<option value="Waiting">Waiting</option>
+									<option value="Approved" selected="selected">Approved</option>
+									<option value="Returned">Returned</option>
+								</select>
+								<%
+									} else if (request.getAttribute("status").equals("Returned")) {
+								%>
+								<select class="form-control" name="status">
+									<option value="">สถานะ...</option>
+									<option value="Waiting">Waiting</option>
+									<option value="Approved">Approved</option>
+									<option value="Returned" selected="selected">Returned</option>
+								</select>
+								<%
+									} else {
+								%>
 								<select class="form-control" name="status">
 									<option value="">สถานะ...</option>
 									<option value="Waiting">Waiting</option>
 									<option value="Approved">Approved</option>
 									<option value="Returned">Returned</option>
 								</select>
+								<%
+									}
+								%>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-info">
