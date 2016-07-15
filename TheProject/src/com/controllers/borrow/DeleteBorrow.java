@@ -52,16 +52,19 @@ public class DeleteBorrow extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		int bor_id = Integer.parseInt(request.getParameter("bor_id"));
-		BorrowDB item = (BorrowDB)brDao.findID(bor_id);
+		BorrowDB item = (BorrowDB) brDao.findID(bor_id);
 		List<BorrowDetails> list = (ArrayList<BorrowDetails>) brdDao.findBorID(bor_id);
-		Users adminUser = (Users)uDao.findUsername("admin");
-		
-		for(BorrowDetails obj : list){
-			PerOfUser pou = (PerOfUser)pouDao.findAsset_id(obj.getAsset_id());
-			PerDetails per = (PerDetails)pdDao.findAssetID(obj.getAsset_id());
-			pou.setUser_id(adminUser.getUser_id());
-			pouDao.update(pou);
-			per.setUse_status("Normal");
+		Users adminUser = (Users) uDao.findUsername("admin");
+
+		for (BorrowDetails obj : list) {
+			PerOfUser pou = (PerOfUser) pouDao.findAsset_id(obj.getAsset_id());
+			PerDetails per = (PerDetails) pdDao.findAssetID(obj.getAsset_id());			
+			if (per != null) {
+				pou.setUser_id(adminUser.getUser_id());
+				pouDao.update(pou);
+				per.setUse_status("Normal");
+				pdDao.update(per);
+			}
 			brdDao.delete(obj.getId());
 		}
 		brDao.delete(bor_id);

@@ -1,6 +1,8 @@
 package com.controllers.consumable;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dao.ConsumDetailsDao;
 import com.dao.ConsumableDao;
-
+import com.model.ConsumDetails;
 
 /**
  * Servlet implementation class DeleteConsum
@@ -48,7 +50,10 @@ public class DeleteConsum extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		int id = Integer.parseInt(request.getParameter("id"));
-		conDetailsDao.delete(id);
+		List<ConsumDetails> list = conDetailsDao.find_Conid(id);
+		for (ConsumDetails item : list) {
+			conDetailsDao.delete(item.getId());
+		}
 		consumDao.delete(id);
 
 	}

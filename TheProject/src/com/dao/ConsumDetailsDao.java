@@ -2,11 +2,13 @@ package com.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.model.ConsumDetails;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 import com.util.DbUtil;
 
 public class ConsumDetailsDao {
@@ -60,6 +62,32 @@ public class ConsumDetailsDao {
 		return null;
 	}
 
+	public List<ConsumDetails> find_Conid(int id) {
+		String sql = "select * from consum_details where con_id = " + id;
+		List<ConsumDetails> items = new ArrayList<>();
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				ConsumDetails consum = new ConsumDetails();
+				consum.setAmount(rs.getInt("amount"));
+				consum.setCon_id(rs.getInt("con_id"));
+				consum.setId(rs.getInt("id"));
+				consum.setInput_date(rs.getString("input_date"));
+				consum.setNote(rs.getString("note"));
+				consum.setPrice(rs.getDouble("price"));
+				consum.setPrice_sum(rs.getDouble("price_sum"));
+				items.add(consum);
+			}
+			if (items != null) {
+				return items;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
 	public void add(ConsumDetails consum) {
 		String sql = "INSERT INTO consum_details (`amount`,`price`,`input_date`,`note`,`con_id`,`price_sum`)"
 				+ "VALUES ('" + consum.getAmount() + "'," + consum.getPrice() + ",'" + consum.getInput_date() + "','"
@@ -73,11 +101,11 @@ public class ConsumDetailsDao {
 	}
 
 	public void delete(int id) {
-		String sql = "DELETE FROM consum_details WHERE id=" + id;
+		String sql = "DELETE FROM consum_details WHERE id = " + id;
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 	}

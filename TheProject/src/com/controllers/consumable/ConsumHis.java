@@ -51,7 +51,7 @@ public class ConsumHis extends HttpServlet {
 			if (gobalUser != null) {
 				int con_id = Integer.parseInt(request.getParameter("con_id"));
 				Consumable consum = consunDao.find(con_id);
-				List<ConsumDetails> list = conDetailDao.getAll();
+				List<ConsumDetails> list = conDetailDao.find_Conid(con_id);
 				request.setAttribute("list", list);
 				request.setAttribute("conName", consum.getCon_name());
 				request.getRequestDispatcher("Views/Consumable/ConsumHis.jsp").forward(request, response);

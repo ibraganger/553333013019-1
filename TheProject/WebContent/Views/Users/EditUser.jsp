@@ -188,6 +188,33 @@
 								if (gobalUser.getRole().equals("admin")) {
 							%>
 							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">สถานะ</label>
+								<div class="col-sm-9">
+									<%
+										if (userEdit.getStatus().equals("active")) {
+									%>
+									<select class="form-control" name="status" id="status">
+										<option value="active" selected="selected">active</option>
+										<option value="deactive">deactive</option>
+									</select>
+									<%
+										} else {
+									%>
+									<select class="form-control" name="status" id="status">
+										<option value="active">active</option>
+										<option value="deactive" selected="selected">deactive</option>
+									</select>
+									<%
+										}
+									%>
+								</div>
+							</div>
+
+							<%
+								}
+								if (gobalUser.getRole().equals("admin")) {
+							%>
+							<div class="form-group">
 								<label class="col-sm-3 control-label">บทบาท</label>
 								<div class="col-sm-9">
 									<div class="radio">

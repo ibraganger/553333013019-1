@@ -102,12 +102,13 @@ public class EditUser extends HttpServlet {
 		user.setTitle(request.getParameter("title"));
 		user.setUser_code(request.getParameter("user_code"));
 		user.setUsername(request.getParameter("username"));
+		user.setStatus(request.getParameter("status"));
 
 		if (user != null) {
 			userDao.update(user);
 			if (gobalUser.getRole().equals("admin")) {
 				response.sendRedirect(request.getContextPath() + "/UserInfo");
-			}else{
+			} else {
 				response.sendRedirect(request.getContextPath() + "/Permanent");
 			}
 		}

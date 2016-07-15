@@ -192,21 +192,11 @@ public class UsersDao {
 	}
 
 	public void add(Users user) {
-		String sql = "call add_user('"+
-				user.getUser_code()+"','"+
-				user.getUsername()+"','"+
-				user.getTitle()+"','"+
-				user.getPassword()+"','"+
-				user.getFirst_name()+"','"+
-				user.getLast_name()+"','"+
-				user.getAddress()+"','"+
-				user.getPhone()+"','"+
-				user.getEmail()+"','"+
-				user.getRole()+"',"+
-				user.getFaculty_id()+","+
-				user.getDepartment_id()+",'"+
-				user.getLast_update()+"',"+
-				"'active')";
+		String sql = "call add_user('" + user.getUser_code() + "','" + user.getUsername() + "','" + user.getTitle()
+				+ "','" + user.getPassword() + "','" + user.getFirst_name() + "','" + user.getLast_name() + "','"
+				+ user.getAddress() + "','" + user.getPhone() + "','" + user.getEmail() + "','" + user.getRole() + "',"
+				+ user.getFaculty_id() + "," + user.getDepartment_id() + ",'" + user.getLast_update() + "',"
+				+ "'active')";
 		try {
 			Statement st = connection.createStatement();
 			st.executeQuery(sql);
@@ -229,21 +219,11 @@ public class UsersDao {
 	}
 
 	public void update(Users user) {
-		String sql = "call edit_user("+
-				user.getUser_id()+",'"+
-				user.getUser_code()+"','"+
-				user.getUsername()+"','"+
-				user.getTitle()+"','"+
-				user.getPassword()+"','"+
-				user.getFirst_name()+"','"+
-				user.getLast_name()+"','"+
-				user.getAddress()+"','"+
-				user.getPhone()+"','"+
-				user.getEmail()+"','"+
-				user.getRole()+"',"+
-				user.getFaculty_id()+","+
-				user.getDepartment_id()+",'"+
-				user.getLast_update()+"')";
+		String sql = "call edit_user(" + user.getUser_id() + ",'" + user.getUser_code() + "','" + user.getUsername()
+				+ "','" + user.getTitle() + "','" + user.getPassword() + "','" + user.getFirst_name() + "','"
+				+ user.getLast_name() + "','" + user.getAddress() + "','" + user.getPhone() + "','" + user.getEmail()
+				+ "','" + user.getRole() + "'," + user.getFaculty_id() + "," + user.getDepartment_id() + ",'"
+				+ user.getLast_update() + "','" + user.getStatus() + "')";
 		try {
 			Statement st = connection.createStatement();
 			st.executeQuery(sql);
