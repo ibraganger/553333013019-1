@@ -42,7 +42,7 @@ public class FindPerCode extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		String code = request.getParameter("code");
 		PerDetails item = perDao.findAssetCode(code);
-		if (item != null) {
+		if (item != null & item.getUse_status().equals("Normal") & item.getStatus().equals("Normal")) {
 			String jsonResult = new Gson().toJson(item);
 			response.getWriter().write(jsonResult);
 		}else{

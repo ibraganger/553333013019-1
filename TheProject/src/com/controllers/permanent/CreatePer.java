@@ -73,7 +73,7 @@ public class CreatePer extends HttpServlet {
 		String[] asset_name = request.getParameterValues("asset_name");
 		String[] storage = request.getParameterValues("storage");
 		String[] note = request.getParameterValues("note");
-		String ststus = "N";
+		String ststus = "Normal";
 		Permanent permanent = new Permanent();
 		permanent.setAmount(Integer.parseInt(request.getParameter("amount")));
 		permanent.setInput_date(request.getParameter("input_date"));

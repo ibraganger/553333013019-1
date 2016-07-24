@@ -175,7 +175,6 @@
 				$('.form-editgroup').validate({
 					rules : {
 						con_code : {
-							required : true,
 							remote : {
 								url : 'DuplicateConsumable',
 								type : 'post',
@@ -207,7 +206,6 @@
 					},
 					messages : {
 						con_code : {
-							required : "ระบุรหัสวัสดุ",
 							remote : "รหัสถูกใช้งานแล้ว"
 						},
 						con_name : {

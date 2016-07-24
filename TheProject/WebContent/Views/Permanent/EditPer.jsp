@@ -116,7 +116,8 @@
 									</thead>
 									<tbody>
 										<%
-											for (PerDetails item : pd) {
+											if (pd != null) {
+												for (PerDetails item : pd) {
 										%>
 										<tr>
 											<td class="text-left"><%=item.getAsset_code()%></td>
@@ -141,6 +142,7 @@
 													data-name="<%=item.getAsset_name()%>"></i></a></td>
 										</tr>
 										<%
+											}
 											}
 										%>
 									</tbody>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-07-20T22:27:17 -->
+<!-- 2016-07-24T12:17:49 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PerpanentReport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c89bf847-f028-4920-b3ed-247f384314fd">
 	<property name="com.jaspersoft.studio.data.sql.tables" value="cHJvamVjdF9hc3NldC5wZXJfZGV0YWlscyBBUyAsMTM4LDQxLDVkMWI2ZGI5LTdhMzItNDAzYi1h&#xA;NDAyLTEwZGVmYzMzZjU5MTtwcm9qZWN0X2Fzc2V0LnBlcm1hbmVudCBBUyAsMTUsMTUsODE4YWY4&#xA;MTgtZTc2ZS00MjMxLWE4YWEtZTRjZTJiYTU2NjEwOw=="/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="project_asset"/>
@@ -53,7 +53,7 @@ FROM project_asset.permanent AS p
 						<bottomPen lineWidth="0.3" lineStyle="Solid" lineColor="#A1A1A1"/>
 						<rightPen lineWidth="0.3" lineStyle="Solid" lineColor="#A1A1A1"/>
 					</box>
-					<textElement textAlignment="Justified" verticalAlignment="Justified">
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
 						<font fontName="TH SarabunPSK" size="10"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>

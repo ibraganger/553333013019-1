@@ -126,7 +126,7 @@ public class PerDetailsDao {
 		}
 		return null;
 	}
-	
+
 	public PerDetails findAssetName(String asset_name) {
 
 		String sql = "SELECT * FROM per_details where asset_name like '" + asset_name + "';";
@@ -225,5 +225,23 @@ public class PerDetailsDao {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public int getCountNormal(int id) {
+		String sql = "SELECT COUNT(per_id) as count FROM per_details where per_id = " + id
+				+ " and per_status like 'Normal' and use_status like 'Normal'";
+		int count = 0;
+		try {
+
+			Statement st = connect.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				count = rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
 	}
 }

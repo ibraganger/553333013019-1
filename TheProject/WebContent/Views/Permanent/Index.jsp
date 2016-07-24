@@ -1,9 +1,11 @@
+<%@page import="com.dao.PerDetailsDao"%>
 <%@page import="com.model.Permanent"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
 <%
+	PerDetailsDao pdDao = new PerDetailsDao();
 	List<Permanent> list = (List<Permanent>) request.getAttribute("list");
 	Users gobalUser = (Users) session.getAttribute("gobalUser");
 	int count = 1;
@@ -73,6 +75,7 @@
 									<th class="text-left">หมายเลขวัสดุ</th>
 									<th class="text-left">ชื่อวัสดุ</th>
 									<th class="text-center">จำนวน</th>
+									<th class="text-center">จำนวนที่ใช้ได้</th>
 									<th class="text-center">หน่วยนับ</th>
 									<th class="text-center">วันที่นำเข้า</th>
 									<%
@@ -93,6 +96,7 @@
 									<td class="text-left"><%=item.getPer_code()%></td>
 									<td class="text-left"><%=item.getPer_name()%></td>
 									<td class="text-center"><%=item.getAmount()%></td>
+									<td class="text-center"><%=pdDao.getCountNormal(item.getPer_id())%></td>
 									<td class="text-center"><%=item.getUnit()%></td>
 									<td class="text-center"><%=item.getInput_date()%></td>
 									<%
