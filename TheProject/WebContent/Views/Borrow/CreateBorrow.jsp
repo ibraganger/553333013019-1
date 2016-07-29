@@ -146,8 +146,11 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#datetimepicker1').datepicker();
-			$('#datetimepicker2').datepicker();
+			$('#datetimepicker1').datepicker({
+				endDate : '1d'
+			});
+			$('#datetimepicker2').datepicker({
+			});
 			var countTable = 1;
 
 			//call modal for show list asset

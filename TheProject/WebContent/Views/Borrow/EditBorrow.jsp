@@ -12,7 +12,7 @@
 	BorrowDB borItem = (BorrowDB) request.getAttribute("borItem");
 	List<BorrowDetails> borDetailsItem = (List<BorrowDetails>) request.getAttribute("borDetailsItem");
 	Users gobalUser = (Users) session.getAttribute("gobalUser");
-	Users userItem = (Users)request.getAttribute("userItem");
+	Users userItem = (Users) request.getAttribute("userItem");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -133,11 +133,13 @@
 									</div>
 								</div>
 								<%
-									}else{
+									} else {
 								%>
 								<input type="hidden" name="status" id="status"
 									value="<%=borItem.getStatus()%>">
-								<%} %>
+								<%
+									}
+								%>
 							</div>
 							<div class="col-sm-8">
 								<div class="col-sm-12">
@@ -225,7 +227,9 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#datetimepicker1').datepicker();
+			$('#datetimepicker1').datepicker({
+				endDate : '1d'
+			});
 			$('#datetimepicker2').datepicker();
 			var countTable = 1;
 

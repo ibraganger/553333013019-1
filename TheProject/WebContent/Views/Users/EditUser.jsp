@@ -48,25 +48,13 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label"></label>
 								<div class="col-sm-9">
-									<%
-										for (TitleName tt : titleList) {
-											if (tt.getTitleName().trim().equals(userEdit.getTitle().trim())) {
-									%>
 									<label class="radio-inline"> <input type="radio"
-										name=title id="title_id1" value="<%=tt.getTitleName()%>"
-										checked> <%=tt.getTitleName()%>
+										name=title id="title_id1" value="นาย" checked> นาย
+									</label> <label class="radio-inline"> <input type="radio"
+										name="title" id="title_id2" value="นางสาว"> นางสาว
+									</label> <label class="radio-inline"> <input type="radio"
+										name="title" id="title_id3" value="นางสาว"> นาง
 									</label>
-									<%
-										} else {
-									%>
-									<label class="radio-inline"> <input type="radio"
-										name=title id="title_id1" value="<%=tt.getTitleName()%>">
-										<%=tt.getTitleName()%>
-									</label>
-									<%
-										}
-										}
-									%>
 								</div>
 							</div>
 							<div class="form-group">
